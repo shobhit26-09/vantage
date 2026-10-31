@@ -150,3 +150,6 @@ footer { border-top: 1px solid var(--panel-border); margin-top: 64px; position: 
 .fgroup-note { font-size: 13px; color: var(--muted); line-height: 1.6; max-width: 720px; margin: -6px 0 14px; }
 .rec-badge.na { color: var(--faint); border-color: rgba(255,255,255,.14); }
 .rec-badge.hit { }
+
+.crowd-note { margin: 10px 2px 0; font-size: 12px; color: var(--muted, #8a8f98); }
+.crowd-cond { opacity: 0.85; }
