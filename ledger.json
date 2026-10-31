@@ -644,7 +644,93 @@
         "forecastAbove": true
       },
       "status": "open"
+    },
+    {
+      "id": "gdelt-rus_ukr-2026-10-31",
+      "engine": "gdelt",
+      "target": "rus_ukr",
+      "claim": "GDELT-recorded material-conflict news events involving Russia/Ukraine actors over the next 7 days above their 4-week weekly average",
+      "p": 0.556,
+      "p_raw": 0.556,
+      "adjust": {
+        "state": "cold-start",
+        "n": 0,
+        "obsRate": null,
+        "delta": 0
+      },
+      "created": 1793468678259,
+      "deadline": 1794073478259,
+      "evidence": {
+        "series": [
+          4988,
+          5361,
+          6403,
+          6184,
+          6481,
+          6271,
+          5212,
+          5643,
+          5172,
+          5745,
+          5388,
+          4734,
+          5237,
+          6628,
+          6082,
+          4154
+        ],
+        "note": "Momentum conditioning: 9 comparable weeks in the past 25 weeks; current week is below the 4-week average. GDELT counts machine-coded NEWS REPORTS of events: volume of coverage, not verified events, with coverage bias. Sparkline: weekly counts, 16 weeks.",
+        "asof": "2026-10-30T00:00:00.000Z"
+      },
+      "frozen": {
+        "baseline": 5670.25,
+        "forecastAbove": true
+      },
+      "status": "open"
+    },
+    {
+      "id": "gdelt-isr_pse-2026-10-31",
+      "engine": "gdelt",
+      "target": "isr_pse",
+      "claim": "GDELT-recorded material-conflict news events involving Israel/Palestinian actors over the next 7 days above their 4-week weekly average",
+      "p": 0.556,
+      "p_raw": 0.556,
+      "adjust": {
+        "state": "cold-start",
+        "n": 0,
+        "obsRate": null,
+        "delta": 0
+      },
+      "created": 1793468678259,
+      "deadline": 1794073478259,
+      "evidence": {
+        "series": [
+          5175,
+          6649,
+          6877,
+          6263,
+          5014,
+          6874,
+          6359,
+          6170,
+          8178,
+          5412,
+          6854,
+          6320,
+          7905,
+          6148,
+          7232,
+          5995
+        ],
+        "note": "Momentum conditioning: 9 comparable weeks in the past 25 weeks; current week is below the 4-week average. GDELT counts machine-coded NEWS REPORTS of events: volume of coverage, not verified events, with coverage bias. Sparkline: weekly counts, 16 weeks.",
+        "asof": "2026-10-30T00:00:00.000Z"
+      },
+      "frozen": {
+        "baseline": 6901.25,
+        "forecastAbove": true
+      },
+      "status": "open"
     }
   ],
-  "updated_at": "2026-10-31T17:27:00.827Z"
+  "updated_at": "2026-10-31T17:44:38.259Z"
 }
