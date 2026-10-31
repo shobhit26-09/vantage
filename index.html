@@ -50,12 +50,15 @@
     <p>Each forecast states its probability and resolution deadline up front. When the deadline passes, the pipeline checks what actually happened and scores it — no edits after the fact.</p>
   </div>
   <div class="fgroup">
-    <h3 class="fgroup-title">War &amp; conflict</h3>
-    <div class="panel"><p class="empty">Not supported yet. Forecasting actual conflict outcomes needs a reliable war-events data source, and none of the sources this pipeline can currently reach provides one. This stays empty rather than dressed up — what exists today is attention tracking, under Geopolitics below.</p></div>
+    <h3 class="fgroup-title">War &amp; conflict <span class="fgroup-tag">news-event volume + crowd views, not outcome predictions</span></h3>
+    <p class="fgroup-note">Vantage has no original war-outcome model — nothing here predicts battles, escalation or casualties. What exists: a news-event volume engine (GDELT, machine-coded from world news coverage) and curated crowd forecasts from Manifold as clearly-labeled external context.</p>
+    <div class="cards" id="cards-gdelt"></div>
+    <div class="crowd-block" id="crowd-war"></div>
   </div>
   <div class="fgroup">
     <h3 class="fgroup-title">Geopolitics <span class="fgroup-tag">public attention, not outcomes</span></h3>
     <div class="cards" id="cards-geopolitics"></div>
+    <div class="crowd-block" id="crowd-geopolitics"></div>
   </div>
   <div class="fgroup">
     <h3 class="fgroup-title">Stock market <span class="fgroup-tag">volatility, never price targets</span></h3>
@@ -64,6 +67,7 @@
   <div class="fgroup">
     <h3 class="fgroup-title">Tech <span class="fgroup-tag">developer ecosystem attention</span></h3>
     <div class="cards" id="cards-tech"></div>
+    <div class="crowd-block" id="crowd-tech"></div>
   </div>
 </section>
 
@@ -81,6 +85,10 @@
       <h3>Calibration</h3>
       <div id="calibration"></div>
     </div>
+  </div>
+  <div class="panel crowd-record-panel">
+    <h3>Crowd forecasts <span class="fgroup-tag">external context · Manifold · graded separately</span></h3>
+    <div id="crowd-record"></div>
   </div>
 </section>
 
@@ -111,6 +119,8 @@
     
     <div class="panel"><h3>Markets</h3><p>Volatility forecasts compare the current 20-day volatility regime against every comparable period in the past two years, and publish the historical follow-through rate. Sources: Coinbase Exchange, Frankfurter (ECB), Yahoo Finance. Volatility forecasts only — no price targets, no advice.</p></div>
     <div class="panel"><h3>Tech &amp; geopolitics — attention, not outcomes</h3><p>These engines forecast public attention: weekly npm downloads and Wikipedia pageviews on major conflict topics, using momentum conditioning on comparable weeks. They measure where the world's focus is moving — they do not predict battlefield outcomes, elections or escalations. Sources: npm, Wikimedia.</p></div>
+    <div class="panel"><h3>War &amp; conflict — news-event volume</h3><p>The conflict engine counts GDELT material-conflict events involving selected actor groups, deduplicated per event, and forecasts whether next week's news-reported volume beats its 4-week average using momentum conditioning on comparable weeks. GDELT events are machine-coded from news coverage: volume of reporting, not verified incidents, with coverage bias. Source: GDELT Project (unlimited use with credit).</p></div>
+    <div class="panel"><h3>Crowd forecasts — external, graded separately</h3><p>Curated Manifold Markets questions appear as external context with the crowd's live probability, participant count, volume, close time, the creator's resolution criteria and a source link. They are graded on resolution against the crowd's first-tracked probability — in a separate record that never feeds Vantage's own hit rate, Brier score or learning. Manifold is a play-money market; its public API permits non-commercial integration use.</p></div>
   </div>
   <p class="disclaimer">Vantage is a statistical forecasting experiment, not financial, safety or political advice. Probabilities are model output, graded honestly over time — treat early scores as small-sample.</p>
 </section>
@@ -119,7 +129,7 @@
 <footer>
   <div class="foot-inner">
     <div class="brand"><svg class="mark" viewBox="0 0 32 32" fill="none"><rect x="1" y="1" width="30" height="30" rx="8" stroke="currentColor" stroke-opacity=".25" stroke-width="1.5"/><path d="M8 10 L16 23 L24 10" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Vantage</span></div>
-    <div class="foot-note">Built by <a href="https://github.com/shobhit26-09" target="_blank" rel="noopener">Shobhit Gupta</a> · Data: Coinbase · ECB · Yahoo Finance · npm · Wikimedia · Forecasts graded in public, hits and misses alike.</div>
+    <div class="foot-note">Built by <a href="https://github.com/shobhit26-09" target="_blank" rel="noopener">Shobhit Gupta</a> · Data: Coinbase · ECB · Yahoo Finance · npm · Wikimedia · GDELT · Manifold · Forecasts graded in public, hits and misses alike.</div>
   </div>
 </footer>
 
