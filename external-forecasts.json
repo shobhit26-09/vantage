@@ -1,0 +1,175 @@
+{
+  "open": [
+    {
+      "id": "wENpa5mETtrCnBYJKl5t",
+      "domain": "war",
+      "question": "Will China launch a full-scale invasion of Taiwan before 2030?",
+      "url": "https://manifold.markets/MetaculusBot/will-china-launch-a-fullscale-invas",
+      "criteria": "https://www.metaculus.com/questions/11480/chinese-invasion-of-taiwan/\n\nUpdate 2025-05-07 (PST) (AI summary of creator comment): The creator has clarified that this market's resolution will be determined by the linked Metaculus market.\n\nResolution Source: This market will resolve as the Metaculus question Chinese Invasion of Taiwan resolves.\n\nGuidance on Specific Scenarios: For inquiries regarding specific scenarios, such as whether a 'massive, successful blockade' would count, the resolution cri",
+      "first_p": 0.2803,
+      "first_t": "2026-10-31T17:44:16.652Z",
+      "history": [
+        [
+          1793468656652,
+          0.2803
+        ]
+      ],
+      "p": 0.2803,
+      "bettors": 1046,
+      "volume": 630357,
+      "close_time": "2030-01-01T04:59:00.000Z",
+      "close_ms": 1893473940000
+    },
+    {
+      "id": "rP0gSkoCniNTeQmDagJU",
+      "domain": "war",
+      "question": "If Trump is elected, will there be a ceasefire in Ukraine before the 2026 midterms?",
+      "url": "https://manifold.markets/Arky/if-trump-is-elected-will-there-be-a-40ca39e5dcec",
+      "criteria": "If Donald Trump does not win the 2024 presidential election or there is a peace treaty signed concluding the Russia-Ukraine war before the election this market will resolve to N/A. If Donald Trump does win the 2024 presidential election:\n\nThis market will resolve to YES if, before November 3rd 2026, there is a ceasefire in the Russia-Ukraine war that consists of a 30 day period where the Ukrainian Ministry of Defense's daily updates report that less than 100 Russian soldiers have been killed in ",
+      "first_p": 0.0188,
+      "first_t": "2026-10-31T17:44:16.652Z",
+      "history": [
+        [
+          1793468656652,
+          0.0188
+        ]
+      ],
+      "p": 0.0188,
+      "bettors": 626,
+      "volume": 402189,
+      "close_time": "2026-11-04T04:59:00.000Z",
+      "close_ms": 1793768340000
+    },
+    {
+      "id": "RAfP69qbh16Quoc2WeQD",
+      "domain": "war",
+      "question": "Will the International Court of Justice (ICJ) determine that Israel committed genocide in Gaza?",
+      "url": "https://manifold.markets/Shump/will-the-icj-determine-that-israel",
+      "criteria": "In the current South African lawsuit against Israel.",
+      "first_p": 0.2096,
+      "first_t": "2026-10-31T17:44:16.652Z",
+      "history": [
+        [
+          1793468656652,
+          0.2096
+        ]
+      ],
+      "p": 0.2096,
+      "bettors": 364,
+      "volume": 112015,
+      "close_time": "2028-01-01T04:59:00.000Z",
+      "close_ms": 1830315540000
+    },
+    {
+      "id": "tt0Uy260hp",
+      "domain": "geopolitics",
+      "question": "Will Iran's regime fall in 2026?",
+      "url": "https://manifold.markets/Plant/will-irans-regime-fall-in-2026",
+      "criteria": "This market will resolve to “Yes” if, by December 31, 2026 at 11:59 PM Pacific Time (PT), the Islamic Republic of Iran is no longer the governing regime of Iran.\n\nThis includes scenarios in which the regime is overthrown, collapses, or otherwise ceases to govern, and a fundamentally different system replaces it. Qualifying scenarios may include:\n\nRevolution\n\nCivil war\n\nMilitary coup\n\nVoluntary abdication of power\n\nEstablishment of a new constitutional order, provisional government, or revolution",
+      "first_p": 0.0397,
+      "first_t": "2026-10-31T17:44:16.652Z",
+      "history": [
+        [
+          1793468656652,
+          0.0397
+        ]
+      ],
+      "p": 0.0397,
+      "bettors": 1988,
+      "volume": 3194731,
+      "close_time": "2026-12-31T23:59:00.000Z",
+      "close_ms": 1798761540000
+    },
+    {
+      "id": "0z22nhXeCipEuXho6qa8",
+      "domain": "geopolitics",
+      "question": "Will Ukraine join NATO by 2033?",
+      "url": "https://manifold.markets/Shalun/will-ukraine-join-nato-by-2033",
+      "criteria": "",
+      "first_p": 0.2741,
+      "first_t": "2026-10-31T17:44:16.652Z",
+      "history": [
+        [
+          1793468656652,
+          0.2741
+        ]
+      ],
+      "p": 0.2741,
+      "bettors": 267,
+      "volume": 24133,
+      "close_time": "2033-01-01T20:59:00.000Z",
+      "close_ms": 1988225940000
+    },
+    {
+      "id": "6vw71lj8bi",
+      "domain": "tech",
+      "question": "Will Artificial Intelligence solve a Millennium Prize Problem before 2030?",
+      "url": "https://manifold.markets/AlanTuring/will-artificial-intelligence-solve",
+      "criteria": "[See pinned comment. Market Creator is gone.]\n\nBackground\n\nThe Millennium Prize Problems are seven legendary open questions in mathematics announced by the Clay Mathematics Institute (CMI) in year 2000, each carrying a US $1 million reward for the first correct solution. Grigori Perelman’s 2003 proof of the Poincaré Conjecture settled one of them, leaving six unsolved challenges:\n\nBirch and Swinnerton-Dyer Conjecture\n\nHodge Conjecture\n\nNavier–Stokes Existence and Smoothness\n\nP vs NP\n\nRiemann Hyp",
+      "first_p": 0.97,
+      "first_t": "2026-10-31T17:44:16.652Z",
+      "history": [
+        [
+          1793468656652,
+          0.97
+        ]
+      ],
+      "p": 0.97,
+      "bettors": 377,
+      "volume": 226075,
+      "close_time": "2030-01-01T04:59:00.000Z",
+      "close_ms": 1893473940000
+    },
+    {
+      "id": "BetSXeRHXok6VdfPtkp8",
+      "domain": "tech",
+      "question": "Will SpaceX's Starship Superheavy launch vehicle reach 500 total successful launches by Jan 1st 2030?",
+      "url": "https://manifold.markets/Alexf3a5/will-spacexs-starship-superheavy-la",
+      "criteria": "I'm considering the first IFT \"Not Successful\", in that it didn't insert Starship into a near-orbital trajectory. Even though personally I think it was a successful data gathering flight. The guiding principle for success is something like \"Did this flight prove to customers their payload will go where they want it to go?\".\n\nEssentially, will SpaceX make 500 launches that a customer would consider proves satisfactory reliability and safety of the system by Jan 1st 2030.\n\nClarified criteria:\n\nA \"",
+      "first_p": 0.0813,
+      "first_t": "2026-10-31T17:44:16.652Z",
+      "history": [
+        [
+          1793468656652,
+          0.0813
+        ]
+      ],
+      "p": 0.0813,
+      "bettors": 127,
+      "volume": 235268,
+      "close_time": "2029-12-31T14:00:00.000Z",
+      "close_ms": 1893420000000
+    },
+    {
+      "id": "HJdflF0LTJwPNKQmaf6G",
+      "domain": "tech",
+      "question": "In 2029, will any AI be able to take an arbitrary proof in the mathematical literature and translate it into a form suitable for symbolic verification? (Gary Marcus benchmark #5)",
+      "url": "https://manifold.markets/vluzko/in-2029-will-any-ai-be-able-to-take",
+      "criteria": "The fifth question from this post: https://garymarcus.substack.com/p/dear-elon-musk-here-are-five-things\n\nThe full text is: \"In 2029, AI will not be able to take arbitrary proofs from the mathematical literature written in natural language and convert them into a symbolic form suitable for symbolic verification.\"\n\nJudgment will be by me, not Gary Marcus.\n\nAmbiguous whether this means start or end of 2029, so I have set it for the end.\n\nI will accept if there is an AI that can do this for >=75% o",
+      "first_p": 0.7847,
+      "first_t": "2026-10-31T17:44:16.652Z",
+      "history": [
+        [
+          1793468656652,
+          0.7847
+        ]
+      ],
+      "p": 0.7847,
+      "bettors": 107,
+      "volume": 19653,
+      "close_time": "2030-01-01T08:00:00.000Z",
+      "close_ms": 1893484800000
+    }
+  ],
+  "resolved": [],
+  "crowd": {
+    "source": "Manifold Markets (play-money prediction market)",
+    "tracked": 8,
+    "resolved": 0,
+    "hits": 0,
+    "brier": null,
+    "note": "Crowd probabilities at first tracking vs final market resolution. External context only: never counted in Vantage's own hit rate, Brier score or learning."
+  },
+  "generated_at": "2026-10-31T17:44:38.259Z",
+  "note": "External crowd forecasts via Manifold's public API. Each card shows the crowd's live probability, participant count, volume, close time and the creator's resolution criteria, with a source link. Vantage does not originate these forecasts."
+}
