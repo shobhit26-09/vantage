@@ -30,7 +30,11 @@ nav { position: sticky; top: 0; z-index: 50; backdrop-filter: blur(18px); -webki
 .nav-links { display: flex; gap: 26px; }
 .nav-links a { color: var(--muted); text-decoration: none; font-size: 14px; font-weight: 500; transition: color .2s; }
 .nav-links a:hover { color: var(--text); }
-@media (max-width: 640px) { .nav-links { display: none; } }
+@media (max-width: 640px) {
+  .nav-inner { flex-wrap: wrap; row-gap: 6px; padding: 12px 20px 10px; }
+  .nav-links { width: 100%; justify-content: space-between; gap: 12px; overflow-x: auto; }
+  .nav-links a { font-size: 12.5px; white-space: nowrap; }
+}
 
 .hero { max-width: 1080px; margin: 0 auto; padding: 96px 24px 64px; position: relative; z-index: 1; }
 .eyebrow { font-family: var(--mono); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin-bottom: 22px; }
