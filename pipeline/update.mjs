@@ -233,7 +233,7 @@ function marketResolver(target, fetcher) {
     const s = await fetcher();
     if (!s) return null;
     const r = logReturns(s).filter((x) => x.t > t0 && x.t <= t1 + DAY);
-    if (r.length < 4) return null;
+    if (r.length < 5) return null; // never grade a 5-day claim on fewer returns; retry until the full window is observed
     const fwd = stdev(r.slice(0, 5).map((x) => x.r)) * Math.sqrt(5);
     return { hit: fwd > frozen.med, actual: `realized 5-day vol ${(fwd * 100).toFixed(1)}% vs median ${(frozen.med * 100).toFixed(1)}%` };
   };
@@ -546,11 +546,39 @@ function loadLedger() {
   }
 }
 
+// Explicit window/settlement metadata: separates the target window, its
+// exclusive end, and when the source's data actually allows grading
+// (provider lag). Displayed on cards; never part of the frozen forecast.
+function settleFor(engine, t0, horizonDays) {
+  const dstr = (ms) => new Date(ms).toISOString().slice(0, 10);
+  if (engine === "gdelt" || engine === "tech" || engine === "geopolitics") {
+    const start = t0 + DAY, end = t0 + horizonDays * DAY;
+    const endExcl = new Date(dstr(end) + "T00:00:00Z").getTime() + DAY;
+    const src = engine === "gdelt" ? "GDELT publishes each day's file the next UTC day" : "the source publishes daily data with a 1-2 day lag";
+    return { window: `${dstr(start)} .. ${dstr(end)} UTC`, window_end: endExcl, grades: `when the last window day's data is published (${src})` };
+  }
+  if (engine === "markets") {
+    const end = t0 + 5 * DAY;
+    return { window: `first 5 daily closes after issue, through ~${dstr(end)}`, window_end: new Date(dstr(end) + "T00:00:00Z").getTime() + DAY, grades: "when the 5th daily close after issue is published" };
+  }
+  return null;
+}
+
 async function main() {
   const ledger = loadLedger();
   const report = { resolved: [], issued: [], skipped: [], errors: [] };
 
   await updateGdeltDaily(report);
+
+  // Derived display metadata backfill for open entries issued before settle
+  // fields existed. Deterministic from created/engine/horizon; touches no
+  // frozen claim, probability or baseline.
+  for (const f of ledger.forecasts) {
+    if (f.status === "open" && !f.settle) {
+      const h = Math.round((f.deadline - f.created) / DAY);
+      f.settle = settleFor(f.engine, f.created, h);
+    }
+  }
 
   for (const f of ledger.forecasts) {
     if (f.status !== "open" || now < f.deadline) continue;
@@ -599,6 +627,7 @@ async function main() {
         p: +p.toFixed(3), p_raw: +fc.pRaw.toFixed(3), adjust: adj,
         created: now, deadline: now + fc.horizonDays * DAY,
         evidence: fc.evidence, frozen: fc.frozen, status: "open",
+        settle: settleFor(fc.engine, now, fc.horizonDays),
       });
       report.issued.push(`${name} p=${p.toFixed(3)} raw=${fc.pRaw.toFixed(3)}`);
     } catch (e) {
