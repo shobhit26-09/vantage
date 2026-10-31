@@ -129,3 +129,6 @@ footer { border-top: 1px solid var(--panel-border); margin-top: 64px; position: 
 .evidence-detail summary::before { content: "+ "; font-family: var(--mono); }
 .evidence-detail[open] summary::before { content: "– "; }
 .evidence-detail summary:hover { color: var(--muted); }
+
+/* Hide the injected Netlify badge */
+#nl-badge-frame { display: none !important; }
