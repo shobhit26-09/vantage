@@ -102,7 +102,7 @@ function renderForecasts(data, gdaily) {
   $("#updated").textContent = `Pipeline ran ${timeAgo(new Date(generated_at).getTime())} · auto-refresh scheduled every 6 hours via GitHub Actions`;
 
   const gdSettle = (f) => {
-    const winLine = f.settle ? ` Window ${f.settle.window}; window fully ends ${new Date(f.settle.window_end).toUTCString().slice(0, 16)} UTC; grades ${f.settle.grades}.` : "";
+    const winLine = f.settle ? ` Window ${f.settle.window}; window fully ends ${new Date(f.settle.window_end).toUTCString().slice(5, 22)} UTC; grades ${f.settle.grades}.` : "";
     if (f.engine !== "gdelt" || !gdaily || !f.frozen || f.frozen.baseline == null) {
       return winLine ? `<div class="settle">${winLine.trim()}</div>` : "";
     }
