@@ -102,7 +102,10 @@ function renderForecasts(data, gdaily) {
   $("#updated").textContent = `Pipeline ran ${timeAgo(new Date(generated_at).getTime())} · auto-refresh scheduled every 6 hours via GitHub Actions`;
 
   const gdSettle = (f) => {
-    if (f.engine !== "gdelt" || !gdaily || !f.frozen || f.frozen.baseline == null) return "";
+    const winLine = f.settle ? ` Window ${f.settle.window}; window fully ends ${new Date(f.settle.window_end).toUTCString().slice(0, 16)} UTC; grades ${f.settle.grades}.` : "";
+    if (f.engine !== "gdelt" || !gdaily || !f.frozen || f.frozen.baseline == null) {
+      return winLine ? `<div class="settle">${winLine.trim()}</div>` : "";
+    }
     const scope = f.id.replace(/^gdelt-/, "").replace(/-\d{4}-\d{2}-\d{2}$/, "");
     const series = gdaily[scope];
     if (!series) return "";
@@ -117,15 +120,16 @@ function renderForecasts(data, gdaily) {
     }
     const dir = up ? "above" : "at or below";
     const progress = n > 0 ? ` ${sum.toLocaleString("en-US")} recorded in the first ${n} of 7 window days.` : " Window days not recorded yet.";
-    return `<div class="settle">How this settles: right if the 7-day total ends ${dir} ${base.toLocaleString("en-US")} events, wrong otherwise.${progress}</div>`;
+    return `<div class="settle">How this settles: right if the 7-day total ends ${dir} ${base.toLocaleString("en-US")} events, wrong otherwise.${progress}${winLine}</div>`;
   };
+  const annotationsHtml = (f) => (f.annotations || []).map((a) => `<div class="annotation">${new Date(a.at).toUTCString().slice(0, 16)} UTC — ${a.text.replace(/</g, "&lt;")}</div>`).join("");
   const cardHtml = (f) => {
     const color = CHIP_COLORS[f.engine] || "#30d158";
     const adj = f.adjust && f.adjust.delta ? ` · calibrated ${f.adjust.delta > 0 ? "+" : ""}${(f.adjust.delta * 100).toFixed(0)}pts` : " · unvalidated";
     return `<div class="card">
       <div class="card-top">
         <span class="chip ${f.engine}">${ENGINE_LABELS[f.engine] || f.engine}</span>
-        <span class="deadline" data-deadline="${f.deadline}">${until(f.deadline)}</span>
+        <span class="deadline" data-deadline="${f.deadline}">${f.settle && Date.now() > f.deadline ? "awaiting data" : until(f.deadline)}</span>
       </div>
       <div class="claim">${f.claim}</div>
       <div class="prob-row">
@@ -134,7 +138,7 @@ function renderForecasts(data, gdaily) {
       </div>
       <div class="pbar"><div class="pbar-fill" style="width:${(f.p * 100).toFixed(0)}%"></div></div>
       <div class="evidence">${sparkline(f.evidence?.series, color)}</div>
-      <details class="evidence-detail"><summary>Evidence &amp; method</summary><div class="evidence-note">${f.evidence?.note || ""}</div>${gdSettle(f)}<div class="asof">issued ${new Date(f.created).toUTCString().slice(0, 16)} UTC · data as of ${new Date(f.evidence?.asof || f.created).toUTCString().slice(0, 16)} UTC</div></details>
+      <details class="evidence-detail"><summary>Evidence &amp; method</summary><div class="evidence-note">${f.evidence?.note || ""}</div>${gdSettle(f)}${annotationsHtml(f)}<div class="asof">issued ${new Date(f.created).toUTCString().slice(0, 16)} UTC · data as of ${new Date(f.evidence?.asof || f.created).toUTCString().slice(0, 16)} UTC</div></details>
     </div>`;
   };
   const sectionSummary = (eng, list) => {
@@ -169,7 +173,7 @@ function renderForecasts(data, gdaily) {
       .slice(0, 12)
       .map((f) => `<div class="rec-row">
         <span class="rec-badge ${f.status}">${f.status === "hit" ? "HIT" : f.status === "superseded" ? "SUPERSEDED" : "MISS"}</span>
-        <span class="rec-claim"><b>${f.claim}</b><br/>${f.actual || ""} · ${fmtPct(f.p)} forecast · resolved ${timeAgo(new Date(f.resolved_at).getTime())}</span>
+        <span class="rec-claim"><b>${f.claim}</b><br/>${f.actual || ""} · ${fmtPct(f.p)} forecast · ${f.status === "superseded" ? "superseded" : "resolved"} ${timeAgo(new Date(f.resolved_at).getTime())}</span>
       </div>`)
       .join("");
   }
