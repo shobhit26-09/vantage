@@ -98,7 +98,7 @@ function renderForecasts(data) {
   $("#stat-resolved").textContent = stats.resolved || "0";
   $("#stat-hitrate").textContent = stats.hitRate != null ? fmtPct(stats.hitRate) : "—";
   $("#stat-brier").textContent = stats.brier != null ? stats.brier.toFixed(3) : "—";
-  $("#updated").textContent = `Pipeline ran ${timeAgo(new Date(generated_at).getTime())} · auto-refreshes every 6 hours via GitHub Actions`;
+  $("#updated").textContent = `Pipeline ran ${timeAgo(new Date(generated_at).getTime())} · auto-refresh scheduled every 6 hours via GitHub Actions`;
 
   const cardHtml = (f) => {
     const color = CHIP_COLORS[f.engine] || "#30d158";
