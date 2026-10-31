@@ -233,7 +233,7 @@ function marketResolver(target, fetcher) {
     const s = await fetcher();
     if (!s) return null;
     const r = logReturns(s).filter((x) => x.t > t0 && x.t <= t1 + DAY);
-    if (r.length < 4) return null;
+    if (r.length < 5) return null; // never grade a 5-day claim on fewer returns; retry until the full window is observed
     const fwd = stdev(r.slice(0, 5).map((x) => x.r)) * Math.sqrt(5);
     return { hit: fwd > frozen.med, actual: `realized 5-day vol ${(fwd * 100).toFixed(1)}% vs median ${(frozen.med * 100).toFixed(1)}%` };
   };
@@ -276,7 +276,12 @@ const ENGINE_SPECS = [
 // Terms: unlimited unrestricted use with credit (gdeltproject.org/about.html).
 
 const GDELT_DAILY_PATH = join(root, "data", "gdelt-daily.json");
-const GDELT_SCOPES = { rus_ukr: ["RUS", "UKR"], isr_pse: ["ISR", "PSE"], chn_twn: ["CHN", "TWN"], irn: ["IRN"] };
+// Paired scopes count only events where BOTH actors come from the pair
+// (direct cross-pair clashes plus in-theatre domestic events); events with a
+// third-party counterparty are excluded so the series measures the theatre
+// itself, matching the claim wording. Single-code scopes match either slot.
+const GDELT_PAIRED = { rus_ukr: ["RUS", "UKR"], isr_pse: ["ISR", "PSE"], chn_twn: ["CHN", "TWN"] };
+const GDELT_SCOPES = { ...GDELT_PAIRED, irn: ["IRN"] };
 
 function loadGdeltDaily() {
   try {
@@ -328,10 +333,10 @@ function countGdeltDay(csv) {
     if (seen.has(p[0])) continue;
     seen.add(p[0]);
     counts.global_mc++;
-    if (GDELT_SCOPES.rus_ukr.includes(p[7]) || GDELT_SCOPES.rus_ukr.includes(p[17])) counts.rus_ukr++;
-    if (GDELT_SCOPES.isr_pse.includes(p[7]) || GDELT_SCOPES.isr_pse.includes(p[17])) counts.isr_pse++;
-    if (GDELT_SCOPES.chn_twn.includes(p[7]) || GDELT_SCOPES.chn_twn.includes(p[17])) counts.chn_twn++;
-    if (GDELT_SCOPES.irn.includes(p[7]) || GDELT_SCOPES.irn.includes(p[17])) counts.irn++;
+    for (const [k, codes] of Object.entries(GDELT_PAIRED)) {
+      if (codes.includes(p[7]) && codes.includes(p[17])) counts[k]++;
+    }
+    if (p[7] === "IRN" || p[17] === "IRN") counts.irn++;
   }
   return counts;
 }
@@ -396,10 +401,10 @@ function engineGdelt(scope, name) {
     pRaw,
     evidence: {
       series: weeks.slice(-16).map((w) => w.v),
-      note: `Momentum conditioning: ${same} comparable weeks in the past ${weeks.length} weeks; current week is ${above ? "above" : "below"} the 4-week average. GDELT counts machine-coded NEWS REPORTS of events: volume of coverage, not verified events, with coverage bias. Sparkline: weekly counts, ${Math.min(16, weeks.length)} weeks.`,
+      note: `Momentum conditioning: ${same} comparable weeks in the past ${weeks.length} weeks; current week is ${above ? "above" : "below"} the 4-week average. GDELT counts machine-coded NEWS REPORTS of events: volume of coverage, not verified events, with coverage bias. ${scope === "global_mc" ? "Scope: all material-conflict events worldwide." : scope === "irn" ? "Scope: events involving an Iranian actor with any counterparty." : "Scope: events where both actors are from the pair — includes same-country pairs and cross-pair events; any event with a third-party counterparty is excluded."} Sparkline: weekly counts, ${Math.min(16, weeks.length)} weeks.`,
       asof: iso(new Date(weeks[weeks.length - 1].d.replace(/^(\d{4})(\d{2})(\d{2})$/, "$1-$2-$3") + "T00:00:00Z").getTime()),
     },
-    frozen: { baseline, forecastAbove },
+    frozen: { baseline, forecastAbove, sem: scope in GDELT_PAIRED ? "paired-both" : scope === "irn" ? "single-country" : "global" },
   };
 }
 
@@ -541,11 +546,39 @@ function loadLedger() {
   }
 }
 
+// Explicit window/settlement metadata: separates the target window, its
+// exclusive end, and when the source's data actually allows grading
+// (provider lag). Displayed on cards; never part of the frozen forecast.
+function settleFor(engine, t0, horizonDays) {
+  const dstr = (ms) => new Date(ms).toISOString().slice(0, 10);
+  if (engine === "gdelt" || engine === "tech" || engine === "geopolitics") {
+    const start = t0 + DAY, end = t0 + horizonDays * DAY;
+    const endExcl = new Date(dstr(end) + "T00:00:00Z").getTime() + DAY;
+    const src = engine === "gdelt" ? "GDELT publishes each day's file the next UTC day" : "the source publishes daily data with a 1-2 day lag";
+    return { window: `${dstr(start)} .. ${dstr(end)} UTC`, window_end: endExcl, grades: `when the last window day's data is published (${src})` };
+  }
+  if (engine === "markets") {
+    const end = t0 + 5 * DAY;
+    return { window: `first 5 daily closes after issue, through ~${dstr(end)}`, window_end: new Date(dstr(end) + "T00:00:00Z").getTime() + DAY, grades: "when the 5th daily close after issue is published" };
+  }
+  return null;
+}
+
 async function main() {
   const ledger = loadLedger();
   const report = { resolved: [], issued: [], skipped: [], errors: [] };
 
   await updateGdeltDaily(report);
+
+  // Derived display metadata backfill for open entries issued before settle
+  // fields existed. Deterministic from created/engine/horizon; touches no
+  // frozen claim, probability or baseline.
+  for (const f of ledger.forecasts) {
+    if (f.status === "open" && !f.settle) {
+      const h = Math.round((f.deadline - f.created) / DAY);
+      f.settle = settleFor(f.engine, f.created, h);
+    }
+  }
 
   for (const f of ledger.forecasts) {
     if (f.status !== "open" || now < f.deadline) continue;
@@ -561,6 +594,20 @@ async function main() {
       report.resolved.push(`${f.id}: ${f.status}`);
     } catch (e) {
       report.errors.push(`resolve ${f.id}: ${e.message}`);
+    }
+  }
+
+  // Methodology QA: open paired-theatre gdelt forecasts frozen under the old
+  // either-actor counting must not be graded against the new paired-both data.
+  // Supersede them openly (not a hit or a miss; excluded from stats/learning)
+  // and let the issue loop re-issue under current semantics.
+  for (const f of ledger.forecasts) {
+    if (f.status !== "open" || f.engine !== "gdelt") continue;
+    if ((f.target in GDELT_PAIRED) && f.frozen?.sem !== "paired-both") {
+      f.status = "superseded";
+      f.actual = "Superseded before outcome: theatre counting narrowed to events where both actors are from the pair, so the frozen baseline no longer matched the data. Not graded.";
+      f.resolved_at = iso(now);
+      report.resolved.push(`${f.id}: superseded (scope-semantics fix)`);
     }
   }
 
@@ -580,6 +627,7 @@ async function main() {
         p: +p.toFixed(3), p_raw: +fc.pRaw.toFixed(3), adjust: adj,
         created: now, deadline: now + fc.horizonDays * DAY,
         evidence: fc.evidence, frozen: fc.frozen, status: "open",
+        settle: settleFor(fc.engine, now, fc.horizonDays),
       });
       report.issued.push(`${name} p=${p.toFixed(3)} raw=${fc.pRaw.toFixed(3)}`);
     } catch (e) {

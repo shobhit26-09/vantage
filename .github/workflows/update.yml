@@ -14,6 +14,8 @@ jobs:
         with:
           node-version: 22
       - run: node pipeline/update.mjs
+      - name: Temporal-integrity self-test
+        run: node pipeline/selftest.mjs
       - name: Commit data
         run: |
           git config user.name "vantage-bot"

@@ -84,7 +84,12 @@
       "frozen": {
         "med": 0.03700577565296787
       },
-      "status": "open"
+      "status": "open",
+      "settle": {
+        "window": "first 5 daily closes after issue, through ~2026-11-05",
+        "window_end": 1793923200000,
+        "grades": "when the 5th daily close after issue is published"
+      }
     },
     {
       "id": "markets-eth-usd-2026-10-31",
@@ -170,7 +175,12 @@
       "frozen": {
         "med": 0.047635428822595534
       },
-      "status": "open"
+      "status": "open",
+      "settle": {
+        "window": "first 5 daily closes after issue, through ~2026-11-05",
+        "window_end": 1793923200000,
+        "grades": "when the 5th daily close after issue is published"
+      }
     },
     {
       "id": "markets-usd-inr-2026-10-31",
@@ -256,7 +266,12 @@
       "frozen": {
         "med": 0.005803958386928873
       },
-      "status": "open"
+      "status": "open",
+      "settle": {
+        "window": "first 5 daily closes after issue, through ~2026-11-05",
+        "window_end": 1793923200000,
+        "grades": "when the 5th daily close after issue is published"
+      }
     },
     {
       "id": "markets-spx-2026-10-31",
@@ -342,7 +357,12 @@
       "frozen": {
         "med": 0.015842365979776275
       },
-      "status": "open"
+      "status": "open",
+      "settle": {
+        "window": "first 5 daily closes after issue, through ~2026-11-05",
+        "window_end": 1793923200000,
+        "grades": "when the 5th daily close after issue is published"
+      }
     },
     {
       "id": "markets-nifty-2026-10-31",
@@ -428,7 +448,12 @@
       "frozen": {
         "med": 0.01488800058668531
       },
-      "status": "open"
+      "status": "open",
+      "settle": {
+        "window": "first 5 daily closes after issue, through ~2026-11-05",
+        "window_end": 1793923200000,
+        "grades": "when the 5th daily close after issue is published"
+      }
     },
     {
       "id": "tech-npm-react-2026-10-31",
@@ -471,7 +496,12 @@
         "baseline": 162316784.25,
         "forecastAbove": true
       },
-      "status": "open"
+      "status": "open",
+      "settle": {
+        "window": "2026-11-01 .. 2026-11-07 UTC",
+        "window_end": 1794096000000,
+        "grades": "when the last window day's data is published (the source publishes daily data with a 1-2 day lag)"
+      }
     },
     {
       "id": "tech-npm-typescript-2026-10-31",
@@ -514,7 +544,12 @@
         "baseline": 262580444,
         "forecastAbove": true
       },
-      "status": "open"
+      "status": "open",
+      "settle": {
+        "window": "2026-11-01 .. 2026-11-07 UTC",
+        "window_end": 1794096000000,
+        "grades": "when the last window day's data is published (the source publishes daily data with a 1-2 day lag)"
+      }
     },
     {
       "id": "tech-npm-openai-2026-10-31",
@@ -557,7 +592,12 @@
         "baseline": 36508773.25,
         "forecastAbove": true
       },
-      "status": "open"
+      "status": "open",
+      "settle": {
+        "window": "2026-11-01 .. 2026-11-07 UTC",
+        "window_end": 1794096000000,
+        "grades": "when the last window day's data is published (the source publishes daily data with a 1-2 day lag)"
+      }
     },
     {
       "id": "geopolitics-ukraine-2026-10-31",
@@ -600,7 +640,12 @@
         "baseline": 11593.75,
         "forecastAbove": false
       },
-      "status": "open"
+      "status": "open",
+      "settle": {
+        "window": "2026-11-01 .. 2026-11-07 UTC",
+        "window_end": 1794096000000,
+        "grades": "when the last window day's data is published (the source publishes daily data with a 1-2 day lag)"
+      }
     },
     {
       "id": "geopolitics-gaza-2026-10-31",
@@ -643,7 +688,12 @@
         "baseline": 54750.75,
         "forecastAbove": true
       },
-      "status": "open"
+      "status": "open",
+      "settle": {
+        "window": "2026-11-01 .. 2026-11-07 UTC",
+        "window_end": 1794096000000,
+        "grades": "when the last window day's data is published (the source publishes daily data with a 1-2 day lag)"
+      }
     },
     {
       "id": "gdelt-rus_ukr-2026-10-31",
@@ -686,7 +736,9 @@
         "baseline": 5670.25,
         "forecastAbove": true
       },
-      "status": "open"
+      "status": "superseded",
+      "actual": "Superseded before outcome: theatre counting narrowed to events where both actors are from the pair, so the frozen baseline no longer matched the data. Not graded.",
+      "resolved_at": "2026-10-31T19:21:44.543Z"
     },
     {
       "id": "gdelt-isr_pse-2026-10-31",
@@ -729,7 +781,9 @@
         "baseline": 6901.25,
         "forecastAbove": true
       },
-      "status": "open"
+      "status": "superseded",
+      "actual": "Superseded before outcome: theatre counting narrowed to events where both actors are from the pair, so the frozen baseline no longer matched the data. Not graded.",
+      "resolved_at": "2026-10-31T19:21:44.543Z"
     },
     {
       "id": "gdelt-chn_twn-2026-10-31",
@@ -772,7 +826,9 @@
         "baseline": 1512.25,
         "forecastAbove": true
       },
-      "status": "open"
+      "status": "superseded",
+      "actual": "Superseded before outcome: theatre counting narrowed to events where both actors are from the pair, so the frozen baseline no longer matched the data. Not graded.",
+      "resolved_at": "2026-10-31T19:21:44.543Z"
     },
     {
       "id": "gdelt-irn-2026-10-31",
@@ -815,7 +871,12 @@
         "baseline": 2588.25,
         "forecastAbove": false
       },
-      "status": "open"
+      "status": "open",
+      "settle": {
+        "window": "2026-11-01 .. 2026-11-07 UTC",
+        "window_end": 1794096000000,
+        "grades": "when the last window day's data is published (GDELT publishes each day's file the next UTC day)"
+      }
     },
     {
       "id": "gdelt-global_mc-2026-10-31",
@@ -858,8 +919,123 @@
         "baseline": 95132,
         "forecastAbove": false
       },
-      "status": "open"
+      "status": "open",
+      "settle": {
+        "window": "2026-11-01 .. 2026-11-07 UTC",
+        "window_end": 1794096000000,
+        "grades": "when the last window day's data is published (GDELT publishes each day's file the next UTC day)"
+      }
+    },
+    {
+      "id": "gdelt-rus_ukr-2026-10-31",
+      "engine": "gdelt",
+      "target": "rus_ukr",
+      "claim": "GDELT-recorded material-conflict news events involving Russia/Ukraine actors over the next 7 days above their 4-week weekly average",
+      "p": 0.625,
+      "p_raw": 0.625,
+      "adjust": {
+        "state": "cold-start",
+        "n": 3,
+        "obsRate": null,
+        "delta": 0
+      },
+      "created": 1793474504543,
+      "deadline": 1794079304543,
+      "evidence": {
+        "series": [
+          1569,
+          1858,
+          1906,
+          2269,
+          2257,
+          2172,
+          1626,
+          1751,
+          1707,
+          1747,
+          1736,
+          1391,
+          1805,
+          2146,
+          2016,
+          1414
+        ],
+        "note": "Momentum conditioning: 8 comparable weeks in the past 25 weeks; current week is below the 4-week average. GDELT counts machine-coded NEWS REPORTS of events: volume of coverage, not verified events, with coverage bias. Scope: events where both actors are from the pair (direct clashes and in-theatre events); third-party counterparty events excluded. Sparkline: weekly counts, 16 weeks.",
+        "asof": "2026-10-30T00:00:00.000Z"
+      },
+      "frozen": {
+        "baseline": 1839.5,
+        "forecastAbove": true,
+        "sem": "paired-both"
+      },
+      "status": "open",
+      "annotations": [
+        {
+          "at": "2026-11-01T01:10:00Z",
+          "text": "Clarification appended 2026-11-01 UTC (original forecast unchanged): 'both actors are from the pair' includes same-country pairs (e.g. RUSxRUS, UKRxUKR) as well as cross pairs (e.g. RUSxUKR); any event with a third-party counterparty is excluded. The filter is therefore theatre-involvement, not direct-clashes-only."
+        }
+      ],
+      "settle": {
+        "window": "2026-11-01 .. 2026-11-07 UTC",
+        "window_end": 1794096000000,
+        "grades": "when the last window day's data is published (GDELT publishes each day's file the next UTC day)"
+      }
+    },
+    {
+      "id": "gdelt-isr_pse-2026-10-31",
+      "engine": "gdelt",
+      "target": "isr_pse",
+      "claim": "GDELT-recorded material-conflict news events involving Israel/Palestinian actors over the next 7 days above their 4-week weekly average",
+      "p": 0.545,
+      "p_raw": 0.545,
+      "adjust": {
+        "state": "cold-start",
+        "n": 3,
+        "obsRate": null,
+        "delta": 0
+      },
+      "created": 1793474504543,
+      "deadline": 1794079304543,
+      "evidence": {
+        "series": [
+          1307,
+          1751,
+          2144,
+          1591,
+          1329,
+          1771,
+          1850,
+          1906,
+          1848,
+          1478,
+          1906,
+          1594,
+          2056,
+          1588,
+          1955,
+          1859
+        ],
+        "note": "Momentum conditioning: 11 comparable weeks in the past 25 weeks; current week is above the 4-week average. GDELT counts machine-coded NEWS REPORTS of events: volume of coverage, not verified events, with coverage bias. Scope: events where both actors are from the pair (direct clashes and in-theatre events); third-party counterparty events excluded. Sparkline: weekly counts, 16 weeks.",
+        "asof": "2026-10-30T00:00:00.000Z"
+      },
+      "frozen": {
+        "baseline": 1798.25,
+        "forecastAbove": true,
+        "sem": "paired-both"
+      },
+      "status": "open",
+      "annotations": [
+        {
+          "at": "2026-11-01T01:10:00Z",
+          "text": "Clarification appended 2026-11-01 UTC (original forecast unchanged): 'both actors are from the pair' includes same-country pairs (e.g. RUSxRUS, UKRxUKR) as well as cross pairs (e.g. RUSxUKR); any event with a third-party counterparty is excluded. The filter is therefore theatre-involvement, not direct-clashes-only."
+        }
+      ],
+      "settle": {
+        "window": "2026-11-01 .. 2026-11-07 UTC",
+        "window_end": 1794096000000,
+        "grades": "when the last window day's data is published (GDELT publishes each day's file the next UTC day)"
+      }
     }
   ],
-  "updated_at": "2026-10-31T19:13:13.180Z"
+  "updated_at": "2026-10-31T19:38:29.296Z"
 }
