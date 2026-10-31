@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Vantage — A public forecasting engine for the real world</title>
+<meta name="description" content="Vantage reads real signals — geopolitical attention, markets and developer ecosystems — and publishes dated, falsifiable forecasts that are graded in public." />
+<link rel="icon" href="favicon.svg" type="image/svg+xml" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<div class="glow glow-a"></div>
+<div class="glow glow-b"></div>
+
+<nav>
+  <div class="nav-inner">
+    <div class="brand">
+      <svg class="mark" viewBox="0 0 32 32" fill="none"><rect x="1" y="1" width="30" height="30" rx="8" stroke="currentColor" stroke-opacity=".25" stroke-width="1.5"/><path d="M8 10 L16 23 L24 10" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span>Vantage</span>
+    </div>
+    <div class="nav-links">
+      <a href="#forecasts">Forecasts</a>
+      <a href="#record">Track record</a>
+      <a href="#learning">Learning</a>
+      <a href="#method">Method</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="eyebrow">Statistical forecasts · Geopolitics · Markets · Tech</div>
+  <h1>The world, forecast<br/><span class="accent">in public.</span></h1>
+  <p class="lede">Vantage reads real signals — geopolitical attention, markets and developer ecosystems — and publishes dated, falsifiable predictions. Every one is graded when the deadline passes. Hits and misses stay on the record, and the engine recalibrates against its own track record.</p>
+  <div class="hero-stats" id="hero-stats">
+    <div class="stat"><div class="stat-num" id="stat-open">—</div><div class="stat-label">Live forecasts</div></div>
+    <div class="stat"><div class="stat-num" id="stat-resolved">—</div><div class="stat-label">Graded</div></div>
+    <div class="stat"><div class="stat-num" id="stat-hitrate">—</div><div class="stat-label">Hit rate</div></div>
+    <div class="stat"><div class="stat-num" id="stat-brier">—</div><div class="stat-label">Brier score</div></div>
+  </div>
+  <div class="updated" id="updated"></div>
+</header>
+
+<main>
+<section id="forecasts">
+  <div class="section-head">
+    <h2>Live forecasts</h2>
+    <p>Each forecast states its probability and resolution deadline up front. When the deadline passes, the pipeline checks what actually happened and scores it — no edits after the fact.</p>
+  </div>
+  <div class="fgroup">
+    <h3 class="fgroup-title">War &amp; conflict</h3>
+    <div class="panel"><p class="empty">Not supported yet. Forecasting actual conflict outcomes needs a reliable war-events data source, and the public ones are blocked or paywalled for automated use. This stays empty rather than dressed up — what exists today is attention tracking, under Geopolitics below.</p></div>
+  </div>
+  <div class="fgroup">
+    <h3 class="fgroup-title">Geopolitics <span class="fgroup-tag">public attention, not outcomes</span></h3>
+    <div class="cards" id="cards-geopolitics"></div>
+  </div>
+  <div class="fgroup">
+    <h3 class="fgroup-title">Stock market <span class="fgroup-tag">volatility, never price targets</span></h3>
+    <div class="cards" id="cards-markets"></div>
+  </div>
+  <div class="fgroup">
+    <h3 class="fgroup-title">Tech <span class="fgroup-tag">developer ecosystem attention</span></h3>
+    <div class="cards" id="cards-tech"></div>
+  </div>
+</section>
+
+<section id="record">
+  <div class="section-head">
+    <h2>Track record</h2>
+    <p>Every resolved forecast, hits and misses alike. The calibration view compares what Vantage said would happen against what did.</p>
+  </div>
+  <div class="record-grid">
+    <div class="panel">
+      <h3>Outcomes</h3>
+      <div id="record-list" class="record-list"></div>
+    </div>
+    <div class="panel">
+      <h3>Calibration</h3>
+      <div id="calibration"></div>
+    </div>
+  </div>
+</section>
+
+<section id="learning">
+  <div class="section-head">
+    <h2>How it learns</h2>
+    <p>Each engine publishes a raw model probability, then adjusts it toward its own observed hit rate on past forecasts with similar probabilities — a recalibration step that strengthens as outcomes accumulate. Early on, with little history, engines stay in <span class="mono">cold-start</span> and publish raw probabilities untouched. Nothing here is claimed to be more than it is: logging alone is not learning, so only measured probability changes count.</p>
+  </div>
+  <div class="panel">
+    <div id="learning-table"></div>
+  </div>
+</section>
+
+<section id="signals">
+  <div class="section-head">
+    <h2>Signals on the board</h2>
+    <p>Live market feeds Vantage watches, refreshed every six hours.</p>
+  </div>
+  <div class="signals" id="signals-board"></div>
+</section>
+
+<section id="method">
+  <div class="section-head">
+    <h2>Method &amp; sources</h2>
+    <p>Transparent rules over public data. No black box, no fake precision, no advice.</p>
+  </div>
+  <div class="method-grid">
+    
+    <div class="panel"><h3>Markets</h3><p>Volatility forecasts compare the current 20-day volatility regime against every comparable period in the past two years, and publish the historical follow-through rate. Sources: Coinbase Exchange, Frankfurter (ECB), Yahoo Finance. Volatility forecasts only — no price targets, no advice.</p></div>
+    <div class="panel"><h3>Tech &amp; geopolitics — attention, not outcomes</h3><p>These engines forecast public attention: weekly npm downloads and Wikipedia pageviews on major conflict topics, using momentum conditioning on comparable weeks. They measure where the world's focus is moving — they do not predict battlefield outcomes, elections or escalations. Sources: npm, Wikimedia.</p></div>
+  </div>
+  <p class="disclaimer">Vantage is a statistical forecasting experiment, not financial, safety or political advice. Probabilities are model output, graded honestly over time — treat early scores as small-sample.</p>
+</section>
+</main>
+
+<footer>
+  <div class="foot-inner">
+    <div class="brand"><svg class="mark" viewBox="0 0 32 32" fill="none"><rect x="1" y="1" width="30" height="30" rx="8" stroke="currentColor" stroke-opacity=".25" stroke-width="1.5"/><path d="M8 10 L16 23 L24 10" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Vantage</span></div>
+    <div class="foot-note">Built by <a href="https://github.com/shobhit26-09" target="_blank" rel="noopener">Shobhit Gupta</a> · Data: Coinbase · ECB · Yahoo Finance · npm · Wikimedia · Forecasts graded in public, hits and misses alike.</div>
+  </div>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
