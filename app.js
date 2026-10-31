@@ -33,16 +33,62 @@ function sparkline(series, color) {
     <path d="${line}" fill="none" stroke="${color}" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
   </svg>`;
 }
-const CHIP_COLORS = { markets: "#30d158", tech: "#64d2ff", geopolitics: "#ff9f0a" };
-const ENGINE_LABELS = { markets: "Markets", tech: "Tech", geopolitics: "Geopolitics · attention" };
+const CHIP_COLORS = { markets: "#30d158", tech: "#64d2ff", geopolitics: "#ff9f0a", gdelt: "#ff453a" };
+const ENGINE_LABELS = { markets: "Markets", tech: "Tech", geopolitics: "Geopolitics · attention", gdelt: "War · news volume" };
 
 async function load() {
-  const [fc, sig] = await Promise.all([
+  const [fc, sig, ext] = await Promise.all([
     fetch("forecasts.json").then((r) => r.json()).catch(() => null),
     fetch("signals.json").then((r) => r.json()).catch(() => null),
+    fetch("external-forecasts.json").then((r) => r.json()).catch(() => null),
   ]);
   if (fc) renderForecasts(fc);
   if (sig) renderSignals(sig);
+  if (ext) renderCrowd(ext);
+}
+
+function renderCrowd(ext) {
+  const fmtClose = (ms) => {
+    if (!ms) return "no close date";
+    const d = new Date(ms);
+    return "closes " + d.toUTCString().slice(5, 16);
+  };
+  const cardHtml = (m) => `<div class="card crowd">
+    <div class="card-top">
+      <span class="chip crowd">Crowd · Manifold</span>
+      <span class="deadline">${fmtClose(m.close_ms)}</span>
+    </div>
+    <div class="claim"><a class="crowd-link" href="${m.url}" target="_blank" rel="noopener">${m.question}</a></div>
+    <div class="prob-row">
+      <span class="prob">${m.p != null ? fmtPct(m.p) : "—"}</span>
+      <span class="prob-note">crowd probability · external</span>
+    </div>
+    <div class="pbar"><div class="pbar-fill crowd-fill" style="width:${m.p != null ? (m.p * 100).toFixed(0) : 0}%"></div></div>
+    <div class="crowd-meta">${m.bettors != null ? m.bettors.toLocaleString("en-US") + " traders" : "traders n/a"} · volume M$${m.volume != null ? m.volume.toLocaleString("en-US") : "n/a"}</div>
+    <details class="evidence-detail"><summary>Resolution criteria &amp; source</summary><div class="evidence-note">${(m.criteria || "No criteria text provided by the market creator.").replace(/</g, "&lt;")}</div><div class="asof">External forecast — Vantage did not originate it. Source: <a href="${m.url}" target="_blank" rel="noopener">Manifold ↗</a> · first tracked at ${m.first_p != null ? fmtPct(m.first_p) : "—"}</div></details>
+  </div>`;
+
+  for (const dom of ["war", "geopolitics", "tech"]) {
+    const el = $("#crowd-" + dom);
+    if (!el) continue;
+    const list = (ext.open || []).filter((m) => m.domain === dom);
+    if (!list.length) continue;
+    el.innerHTML = `<h4 class="crowd-title">Crowd forecasts <span class="fgroup-tag">external · via Manifold · not Vantage's own model</span></h4><div class="cards">` + list.map(cardHtml).join("") + `</div>`;
+  }
+
+  const cr = $("#crowd-record");
+  if (cr) {
+    const c = ext.crowd || {};
+    const rows = (ext.resolved || []).slice(0, 10).map((r) => {
+      const na = r.outcome === "N/A";
+      const hit = !na && r.first_p != null && (r.first_p >= 0.5) === (r.outcome === "YES");
+      return `<div class="rec-row">
+        <span class="rec-badge ${na ? "na" : hit ? "hit" : "miss"}">${na ? "N/A" : hit ? "CROWD HIT" : "CROWD MISS"}</span>
+        <span class="rec-claim"><b><a class="crowd-link" href="${r.url}" target="_blank" rel="noopener">${r.question}</a></b><br/>resolved ${r.outcome}${r.resolution_time ? " · " + r.resolution_time.slice(0, 10) : ""} · crowd said ${r.first_p != null ? fmtPct(r.first_p) : "—"} when first tracked</span>
+      </div>`;
+    }).join("");
+    cr.innerHTML = `<p class="empty">Manifold questions Vantage tracks as external context: <b>${c.tracked ?? 0}</b> open · <b>${c.resolved ?? 0}</b> resolved${c.brier != null ? ` · crowd hit rate ${c.hits}/${c.resolved} · crowd Brier ${c.brier.toFixed(3)}` : ""}. These grades describe the crowd, not Vantage — they never enter the engines' own record above.</p>` + rows;
+  }
 }
 
 function renderForecasts(data) {
@@ -71,7 +117,7 @@ function renderForecasts(data) {
       <details class="evidence-detail"><summary>Evidence &amp; method</summary><div class="evidence-note">${f.evidence?.note || ""}</div><div class="asof">issued ${new Date(f.created).toUTCString().slice(0, 16)} UTC · data as of ${new Date(f.evidence?.asof || f.created).toUTCString().slice(0, 16)} UTC</div></details>
     </div>`;
   };
-  for (const eng of ["geopolitics", "markets", "tech"]) {
+  for (const eng of ["gdelt", "geopolitics", "markets", "tech"]) {
     const el = $(`#cards-${eng}`);
     if (!el) continue;
     const list = active.filter((f) => f.engine === eng);
