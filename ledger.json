@@ -686,7 +686,9 @@
         "baseline": 5670.25,
         "forecastAbove": true
       },
-      "status": "open"
+      "status": "superseded",
+      "actual": "Superseded before outcome: theatre counting narrowed to events where both actors are from the pair, so the frozen baseline no longer matched the data. Not graded.",
+      "resolved_at": "2026-10-31T19:21:44.543Z"
     },
     {
       "id": "gdelt-isr_pse-2026-10-31",
@@ -729,7 +731,9 @@
         "baseline": 6901.25,
         "forecastAbove": true
       },
-      "status": "open"
+      "status": "superseded",
+      "actual": "Superseded before outcome: theatre counting narrowed to events where both actors are from the pair, so the frozen baseline no longer matched the data. Not graded.",
+      "resolved_at": "2026-10-31T19:21:44.543Z"
     },
     {
       "id": "gdelt-chn_twn-2026-10-31",
@@ -772,7 +776,9 @@
         "baseline": 1512.25,
         "forecastAbove": true
       },
-      "status": "open"
+      "status": "superseded",
+      "actual": "Superseded before outcome: theatre counting narrowed to events where both actors are from the pair, so the frozen baseline no longer matched the data. Not graded.",
+      "resolved_at": "2026-10-31T19:21:44.543Z"
     },
     {
       "id": "gdelt-irn-2026-10-31",
@@ -859,7 +865,95 @@
         "forecastAbove": false
       },
       "status": "open"
+    },
+    {
+      "id": "gdelt-rus_ukr-2026-10-31",
+      "engine": "gdelt",
+      "target": "rus_ukr",
+      "claim": "GDELT-recorded material-conflict news events involving Russia/Ukraine actors over the next 7 days above their 4-week weekly average",
+      "p": 0.625,
+      "p_raw": 0.625,
+      "adjust": {
+        "state": "cold-start",
+        "n": 3,
+        "obsRate": null,
+        "delta": 0
+      },
+      "created": 1793474504543,
+      "deadline": 1794079304543,
+      "evidence": {
+        "series": [
+          1569,
+          1858,
+          1906,
+          2269,
+          2257,
+          2172,
+          1626,
+          1751,
+          1707,
+          1747,
+          1736,
+          1391,
+          1805,
+          2146,
+          2016,
+          1414
+        ],
+        "note": "Momentum conditioning: 8 comparable weeks in the past 25 weeks; current week is below the 4-week average. GDELT counts machine-coded NEWS REPORTS of events: volume of coverage, not verified events, with coverage bias. Scope: events where both actors are from the pair (direct clashes and in-theatre events); third-party counterparty events excluded. Sparkline: weekly counts, 16 weeks.",
+        "asof": "2026-10-30T00:00:00.000Z"
+      },
+      "frozen": {
+        "baseline": 1839.5,
+        "forecastAbove": true,
+        "sem": "paired-both"
+      },
+      "status": "open"
+    },
+    {
+      "id": "gdelt-isr_pse-2026-10-31",
+      "engine": "gdelt",
+      "target": "isr_pse",
+      "claim": "GDELT-recorded material-conflict news events involving Israel/Palestinian actors over the next 7 days above their 4-week weekly average",
+      "p": 0.545,
+      "p_raw": 0.545,
+      "adjust": {
+        "state": "cold-start",
+        "n": 3,
+        "obsRate": null,
+        "delta": 0
+      },
+      "created": 1793474504543,
+      "deadline": 1794079304543,
+      "evidence": {
+        "series": [
+          1307,
+          1751,
+          2144,
+          1591,
+          1329,
+          1771,
+          1850,
+          1906,
+          1848,
+          1478,
+          1906,
+          1594,
+          2056,
+          1588,
+          1955,
+          1859
+        ],
+        "note": "Momentum conditioning: 11 comparable weeks in the past 25 weeks; current week is above the 4-week average. GDELT counts machine-coded NEWS REPORTS of events: volume of coverage, not verified events, with coverage bias. Scope: events where both actors are from the pair (direct clashes and in-theatre events); third-party counterparty events excluded. Sparkline: weekly counts, 16 weeks.",
+        "asof": "2026-10-30T00:00:00.000Z"
+      },
+      "frozen": {
+        "baseline": 1798.25,
+        "forecastAbove": true,
+        "sem": "paired-both"
+      },
+      "status": "open"
     }
   ],
-  "updated_at": "2026-10-31T19:13:13.180Z"
+  "updated_at": "2026-10-31T19:22:30.085Z"
 }
