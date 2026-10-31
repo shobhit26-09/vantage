@@ -428,7 +428,7 @@ function resolveGdelt(scope, t0, t1, frozen) {
 
 const MANIFOLD_CURATED = [
   ["war", "wENpa5mETtrCnBYJKl5t"],
-  ["war", "rP0gSkoCniNTeQmDagJU"],
+  ["war", "rP0gSkoCniNTeQmDagJU", "Conditional market. The condition (Trump winning the 2024 election) is met, so the live question is the ceasefire itself; had it failed, the market would have resolved N/A per its own rules."],
   ["war", "RAfP69qbh16Quoc2WeQD"],
   ["geopolitics", "tt0Uy260hp"],
   ["geopolitics", "0z22nhXeCipEuXho6qa8"],
@@ -452,7 +452,7 @@ async function runManifold(report) {
   const keep = new Set(MANIFOLD_CURATED.map(([, id]) => id));
   ext.open = ext.open.filter((m) => keep.has(m.id));
 
-  for (const [domain, id] of MANIFOLD_CURATED) {
+  for (const [domain, id, condition] of MANIFOLD_CURATED) {
     try {
       const m = await fetchJSON(`https://api.manifold.markets/v0/market/${id}`);
       if (!m || m.outcomeType !== "BINARY") { report.skipped.push(`manifold ${id}: not-binary`); continue; }
@@ -466,6 +466,7 @@ async function runManifold(report) {
         ext.open.push(rec);
       }
       rec.domain = domain;
+      rec.condition = condition || null;
       const p = typeof m.probability === "number" ? +m.probability.toFixed(4) : null;
       rec.p = p;
       rec.bettors = m.uniqueBettorCount ?? null;
@@ -499,6 +500,7 @@ async function runManifold(report) {
   }
 
   ext.resolved = ext.resolved.slice(-60);
+  ext.close_note = "close_time is when trading stops, not when the question is decided. A market is scored only after its creator posts the official YES/NO/N-A resolution, which can come later.";
   const scoredRes = ext.resolved.filter((r) => r.crowd_brier != null);
   ext.crowd = {
     source: "Manifold Markets (play-money prediction market)",
