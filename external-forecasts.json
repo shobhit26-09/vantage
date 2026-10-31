@@ -54,11 +54,15 @@
         [
           1793468656652,
           0.2096
+        ],
+        [
+          1793483012973,
+          0.16
         ]
       ],
-      "p": 0.2096,
+      "p": 0.16,
       "bettors": 364,
-      "volume": 112015,
+      "volume": 112229,
       "close_time": "2028-01-01T04:59:00.000Z",
       "close_ms": 1830315540000,
       "condition": null
@@ -178,7 +182,7 @@
     "brier": null,
     "note": "Crowd probabilities at first tracking vs final market resolution. External context only: never counted in Vantage's own hit rate, Brier score or learning."
   },
-  "generated_at": "2026-10-31T19:13:13.180Z",
+  "generated_at": "2026-10-31T21:43:32.973Z",
   "note": "External crowd forecasts via Manifold's public API. Each card shows the crowd's live probability, participant count, volume, close time and the creator's resolution criteria, with a source link. Vantage does not originate these forecasts.",
   "close_note": "close_time is when trading stops, not when the question is decided. A market is scored only after its creator posts the official YES/NO/N-A resolution, which can come later."
 }
