@@ -401,7 +401,7 @@ function engineGdelt(scope, name) {
     pRaw,
     evidence: {
       series: weeks.slice(-16).map((w) => w.v),
-      note: `Momentum conditioning: ${same} comparable weeks in the past ${weeks.length} weeks; current week is ${above ? "above" : "below"} the 4-week average. GDELT counts machine-coded NEWS REPORTS of events: volume of coverage, not verified events, with coverage bias. ${scope === "global_mc" ? "Scope: all material-conflict events worldwide." : scope === "irn" ? "Scope: events involving an Iranian actor with any counterparty." : "Scope: events where both actors are from the pair (direct clashes and in-theatre events); third-party counterparty events excluded."} Sparkline: weekly counts, ${Math.min(16, weeks.length)} weeks.`,
+      note: `Momentum conditioning: ${same} comparable weeks in the past ${weeks.length} weeks; current week is ${above ? "above" : "below"} the 4-week average. GDELT counts machine-coded NEWS REPORTS of events: volume of coverage, not verified events, with coverage bias. ${scope === "global_mc" ? "Scope: all material-conflict events worldwide." : scope === "irn" ? "Scope: events involving an Iranian actor with any counterparty." : "Scope: events where both actors are from the pair — includes same-country pairs and cross-pair events; any event with a third-party counterparty is excluded."} Sparkline: weekly counts, ${Math.min(16, weeks.length)} weeks.`,
       asof: iso(new Date(weeks[weeks.length - 1].d.replace(/^(\d{4})(\d{2})(\d{2})$/, "$1-$2-$3") + "T00:00:00Z").getTime()),
     },
     frozen: { baseline, forecastAbove, sem: scope in GDELT_PAIRED ? "paired-both" : scope === "irn" ? "single-country" : "global" },
