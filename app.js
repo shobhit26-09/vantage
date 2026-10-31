@@ -141,7 +141,7 @@ function renderForecasts(data, gdaily) {
     if (!list.length) return "";
     if (eng === "gdelt") {
       const dir = (f) => (f.claim.includes(" above ") ? "above" : "below");
-      const name = (f) => (f.claim.match(/involving (.+?) actors/) || [])[1] || "worldwide";
+      const name = (f) => (f.claim.includes("worldwide") ? "worldwide" : (f.claim.match(/involving (.+?) actors/) || [])[1] || "worldwide");
       const above = list.filter((f) => dir(f) === "above").map(name);
       const below = list.filter((f) => dir(f) === "below").map(name);
       const parts = [];
