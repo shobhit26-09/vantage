@@ -261,7 +261,7 @@ for (const [t, , f] of MARKET_TARGETS) marketResolver(t, f);
 for (const [t, , f] of NPM_TARGETS) attentionResolver("tech", t, f);
 for (const [t, , f] of WIKI_TARGETS) attentionResolver("geopolitics", t, f);
 
-const GDELT_TARGETS = [["rus_ukr", "Russia/Ukraine actors"], ["isr_pse", "Israel/Palestinian actors"]];
+const GDELT_TARGETS = [["rus_ukr", "Russia/Ukraine actors"], ["isr_pse", "Israel/Palestinian actors"], ["chn_twn", "China/Taiwan actors"], ["irn", "Iran actors"], ["global_mc", "any actors worldwide"]];
 const ENGINE_SPECS = [
   ...GDELT_TARGETS.map(([t, name]) => [`gdelt-${t}`, () => engineGdelt(t, name)]),
   ...MARKET_TARGETS.map(([t, name, f]) => [`markets-${t}`, () => engineMarketVol(t, name, f)]),
@@ -276,7 +276,7 @@ const ENGINE_SPECS = [
 // Terms: unlimited unrestricted use with credit (gdeltproject.org/about.html).
 
 const GDELT_DAILY_PATH = join(root, "data", "gdelt-daily.json");
-const GDELT_SCOPES = { rus_ukr: ["RUS", "UKR"], isr_pse: ["ISR", "PSE"] };
+const GDELT_SCOPES = { rus_ukr: ["RUS", "UKR"], isr_pse: ["ISR", "PSE"], chn_twn: ["CHN", "TWN"], irn: ["IRN"] };
 
 function loadGdeltDaily() {
   try {
@@ -320,7 +320,7 @@ async function fetchBuffer(url, { retries = 3, timeout = 90000 } = {}) {
 // 0 GLOBALEVENTID, 7 Actor1CountryCode, 17 Actor2CountryCode, 28 EventRootCode, 29 QuadClass.
 function countGdeltDay(csv) {
   const seen = new Set();
-  const counts = { global_mc: 0, rus_ukr: 0, isr_pse: 0 };
+  const counts = { global_mc: 0, rus_ukr: 0, isr_pse: 0, chn_twn: 0, irn: 0 };
   for (const ln of csv.split("\n")) {
     if (!ln) continue;
     const p = ln.split("\t");
@@ -330,6 +330,8 @@ function countGdeltDay(csv) {
     counts.global_mc++;
     if (GDELT_SCOPES.rus_ukr.includes(p[7]) || GDELT_SCOPES.rus_ukr.includes(p[17])) counts.rus_ukr++;
     if (GDELT_SCOPES.isr_pse.includes(p[7]) || GDELT_SCOPES.isr_pse.includes(p[17])) counts.isr_pse++;
+    if (GDELT_SCOPES.chn_twn.includes(p[7]) || GDELT_SCOPES.chn_twn.includes(p[17])) counts.chn_twn++;
+    if (GDELT_SCOPES.irn.includes(p[7]) || GDELT_SCOPES.irn.includes(p[17])) counts.irn++;
   }
   return counts;
 }
@@ -401,8 +403,9 @@ function engineGdelt(scope, name) {
   };
 }
 
-RESOLVERS[`gdelt:rus_ukr`] = async (t0, t1, frozen) => resolveGdelt("rus_ukr", t0, t1, frozen);
-RESOLVERS[`gdelt:isr_pse`] = async (t0, t1, frozen) => resolveGdelt("isr_pse", t0, t1, frozen);
+for (const t of ["rus_ukr", "isr_pse", "chn_twn", "irn", "global_mc"]) {
+  RESOLVERS[`gdelt:${t}`] = async (t0, t1, frozen) => resolveGdelt(t, t0, t1, frozen);
+}
 
 function resolveGdelt(scope, t0, t1, frozen) {
   const data = loadGdeltDaily();
