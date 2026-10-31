@@ -178,7 +178,7 @@
     "brier": null,
     "note": "Crowd probabilities at first tracking vs final market resolution. External context only: never counted in Vantage's own hit rate, Brier score or learning."
   },
-  "generated_at": "2026-10-31T19:22:30.085Z",
+  "generated_at": "2026-10-31T19:29:40.456Z",
   "note": "External crowd forecasts via Manifold's public API. Each card shows the crowd's live probability, participant count, volume, close time and the creator's resolution criteria, with a source link. Vantage does not originate these forecasts.",
   "close_note": "close_time is when trading stops, not when the question is decided. A market is scored only after its creator posts the official YES/NO/N-A resolution, which can come later."
 }
