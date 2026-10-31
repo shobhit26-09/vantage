@@ -18,7 +18,8 @@
       "bettors": 1046,
       "volume": 630357,
       "close_time": "2030-01-01T04:59:00.000Z",
-      "close_ms": 1893473940000
+      "close_ms": 1893473940000,
+      "condition": null
     },
     {
       "id": "rP0gSkoCniNTeQmDagJU",
@@ -38,7 +39,8 @@
       "bettors": 626,
       "volume": 402189,
       "close_time": "2026-11-04T04:59:00.000Z",
-      "close_ms": 1793768340000
+      "close_ms": 1793768340000,
+      "condition": "Conditional market. The condition (Trump winning the 2024 election) is met, so the live question is the ceasefire itself; had it failed, the market would have resolved N/A per its own rules."
     },
     {
       "id": "RAfP69qbh16Quoc2WeQD",
@@ -58,7 +60,8 @@
       "bettors": 364,
       "volume": 112015,
       "close_time": "2028-01-01T04:59:00.000Z",
-      "close_ms": 1830315540000
+      "close_ms": 1830315540000,
+      "condition": null
     },
     {
       "id": "tt0Uy260hp",
@@ -78,7 +81,8 @@
       "bettors": 1988,
       "volume": 3194731,
       "close_time": "2026-12-31T23:59:00.000Z",
-      "close_ms": 1798761540000
+      "close_ms": 1798761540000,
+      "condition": null
     },
     {
       "id": "0z22nhXeCipEuXho6qa8",
@@ -98,7 +102,8 @@
       "bettors": 267,
       "volume": 24133,
       "close_time": "2033-01-01T20:59:00.000Z",
-      "close_ms": 1988225940000
+      "close_ms": 1988225940000,
+      "condition": null
     },
     {
       "id": "6vw71lj8bi",
@@ -118,7 +123,8 @@
       "bettors": 377,
       "volume": 226075,
       "close_time": "2030-01-01T04:59:00.000Z",
-      "close_ms": 1893473940000
+      "close_ms": 1893473940000,
+      "condition": null
     },
     {
       "id": "BetSXeRHXok6VdfPtkp8",
@@ -138,7 +144,8 @@
       "bettors": 127,
       "volume": 235268,
       "close_time": "2029-12-31T14:00:00.000Z",
-      "close_ms": 1893420000000
+      "close_ms": 1893420000000,
+      "condition": null
     },
     {
       "id": "HJdflF0LTJwPNKQmaf6G",
@@ -158,7 +165,8 @@
       "bettors": 107,
       "volume": 19653,
       "close_time": "2030-01-01T08:00:00.000Z",
-      "close_ms": 1893484800000
+      "close_ms": 1893484800000,
+      "condition": null
     }
   ],
   "resolved": [],
@@ -170,6 +178,7 @@
     "brier": null,
     "note": "Crowd probabilities at first tracking vs final market resolution. External context only: never counted in Vantage's own hit rate, Brier score or learning."
   },
-  "generated_at": "2026-10-31T17:44:38.259Z",
-  "note": "External crowd forecasts via Manifold's public API. Each card shows the crowd's live probability, participant count, volume, close time and the creator's resolution criteria, with a source link. Vantage does not originate these forecasts."
+  "generated_at": "2026-10-31T17:53:08.983Z",
+  "note": "External crowd forecasts via Manifold's public API. Each card shows the crowd's live probability, participant count, volume, close time and the creator's resolution criteria, with a source link. Vantage does not originate these forecasts.",
+  "close_note": "close_time is when trading stops, not when the question is decided. A market is scored only after its creator posts the official YES/NO/N-A resolution, which can come later."
 }
