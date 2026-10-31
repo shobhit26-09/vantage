@@ -9,6 +9,7 @@
 // No retroactive edits: ledger entries are append/resolve only.
 
 import { readFileSync, writeFileSync } from "node:fs";
+import { inflateRawSync } from "node:zlib";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -260,11 +261,257 @@ for (const [t, , f] of MARKET_TARGETS) marketResolver(t, f);
 for (const [t, , f] of NPM_TARGETS) attentionResolver("tech", t, f);
 for (const [t, , f] of WIKI_TARGETS) attentionResolver("geopolitics", t, f);
 
+const GDELT_TARGETS = [["rus_ukr", "Russia/Ukraine actors"], ["isr_pse", "Israel/Palestinian actors"]];
 const ENGINE_SPECS = [
+  ...GDELT_TARGETS.map(([t, name]) => [`gdelt-${t}`, () => engineGdelt(t, name)]),
   ...MARKET_TARGETS.map(([t, name, f]) => [`markets-${t}`, () => engineMarketVol(t, name, f)]),
   ...NPM_TARGETS.map(([t, name, f]) => [`tech-${t}`, () => engineAttention("tech", t, name, "weekly downloads", f)]),
   ...WIKI_TARGETS.map(([t, name, f]) => [`geo-${t}`, () => engineAttention("geopolitics", t, name, "weekly views", f)]),
 ];
+
+
+// ---------- GDELT news-event-volume source ----------
+// GDELT events are machine-coded from WORLD NEWS COVERAGE: counts measure
+// reported event volume, not verified ground truth, and carry coverage bias.
+// Terms: unlimited unrestricted use with credit (gdeltproject.org/about.html).
+
+const GDELT_DAILY_PATH = join(root, "data", "gdelt-daily.json");
+const GDELT_SCOPES = { rus_ukr: ["RUS", "UKR"], isr_pse: ["ISR", "PSE"] };
+
+function loadGdeltDaily() {
+  try {
+    return JSON.parse(readFileSync(GDELT_DAILY_PATH, "utf8"));
+  } catch {
+    return null;
+  }
+}
+
+// Minimal single-entry ZIP reader (GDELT daily files are one deflated CSV).
+function unzipFirst(buf) {
+  if (buf.readUInt32LE(0) !== 0x04034b50) throw new Error("not a zip");
+  const method = buf.readUInt16LE(8);
+  const compSize = buf.readUInt32LE(18);
+  const nameLen = buf.readUInt16LE(26);
+  const extraLen = buf.readUInt16LE(28);
+  const data = buf.subarray(30 + nameLen + extraLen, 30 + nameLen + extraLen + compSize);
+  if (method === 8) return inflateRawSync(data);
+  if (method === 0) return data;
+  throw new Error("zip method " + method);
+}
+
+async function fetchBuffer(url, { retries = 3, timeout = 90000 } = {}) {
+  for (let i = 0; i < retries; i++) {
+    try {
+      const ctl = new AbortController();
+      const to = setTimeout(() => ctl.abort(), timeout);
+      const r = await fetch(url, { signal: ctl.signal, headers: { "user-agent": "vantage-forecast/1.0 (forecasting research; github actions)" } });
+      clearTimeout(to);
+      if (!r.ok) throw new Error(`HTTP ${r.status}`);
+      return Buffer.from(await r.arrayBuffer());
+    } catch (e) {
+      if (i === retries - 1) throw e;
+      await sleep(3000 * (i + 1));
+    }
+  }
+}
+
+// Count one day of GDELT events: dedupe by GLOBALEVENTID, QuadClass 4
+// (material conflict) only. Column layout verified against the 2.0 spec:
+// 0 GLOBALEVENTID, 7 Actor1CountryCode, 17 Actor2CountryCode, 28 EventRootCode, 29 QuadClass.
+function countGdeltDay(csv) {
+  const seen = new Set();
+  const counts = { global_mc: 0, rus_ukr: 0, isr_pse: 0 };
+  for (const ln of csv.split("\n")) {
+    if (!ln) continue;
+    const p = ln.split("\t");
+    if (p.length < 54 || p[29] !== "4") continue;
+    if (seen.has(p[0])) continue;
+    seen.add(p[0]);
+    counts.global_mc++;
+    if (GDELT_SCOPES.rus_ukr.includes(p[7]) || GDELT_SCOPES.rus_ukr.includes(p[17])) counts.rus_ukr++;
+    if (GDELT_SCOPES.isr_pse.includes(p[7]) || GDELT_SCOPES.isr_pse.includes(p[17])) counts.isr_pse++;
+  }
+  return counts;
+}
+
+// Fill any missing days up to yesterday from the daily archive.
+async function updateGdeltDaily(report) {
+  const data = loadGdeltDaily();
+  if (!data) { report.errors.push("gdelt: no baseline file"); return; }
+  const dates = Object.keys(data.global_mc).sort();
+  let next = dates.length ? new Date(dates[dates.length - 1] + "T00:00:00Z").getTime() + DAY : null;
+  if (!next) return;
+  const yesterday = day(now - DAY);
+  while (day(next) <= yesterday) {
+    const ds = day(next).replaceAll("-", "");
+    try {
+      const buf = await fetchBuffer(`https://data.gdeltproject.org/events/${ds}.export.CSV.zip`);
+      const counts = countGdeltDay(unzipFirst(buf).toString("utf-8"));
+      for (const k of Object.keys(counts)) data[k][ds] = counts[k];
+      report.gdelt_days_added = (report.gdelt_days_added || 0) + 1;
+    } catch (e) {
+      report.errors.push(`gdelt day ${ds}: ${e.message}`);
+      break; // keep history contiguous; retry next run
+    }
+    next += DAY;
+  }
+  writeFileSync(GDELT_DAILY_PATH, JSON.stringify(data, null, 1));
+}
+
+// GDELT weekly momentum engine (same conditioning shape as attention engine,
+// on news-reported material-conflict event counts).
+function engineGdelt(scope, name) {
+  const data = loadGdeltDaily();
+  if (!data || !data[scope]) return null;
+  const series = Object.entries(data[scope]).sort(([a], [b]) => (a < b ? -1 : 1)).map(([d, v]) => ({ d, v }));
+  if (series.length < 70) return null;
+  const nBlocks = Math.floor(series.length / 7);
+  const weeks = [];
+  for (let w = nBlocks; w >= 1; w--) {
+    const slice = series.slice(series.length - w * 7, series.length - (w - 1) * 7);
+    weeks.push({ d: slice[6].d, v: slice.reduce((a, b) => a + b.v, 0) });
+  }
+  if (weeks.length < 9) return null;
+  const last = weeks[weeks.length - 1].v;
+  const prev4 = weeks.slice(-5, -1).map((w) => w.v);
+  const baseline = prev4.reduce((a, b) => a + b, 0) / prev4.length;
+  const above = last > baseline;
+  let same = 0, hits = 0;
+  for (let i = 4; i < weeks.length - 1; i++) {
+    const b4 = (weeks[i - 1].v + weeks[i - 2].v + weeks[i - 3].v + weeks[i - 4].v) / 4;
+    if ((weeks[i].v > b4) !== above) continue;
+    const n4 = (weeks[i].v + weeks[i - 1].v + weeks[i - 2].v + weeks[i - 3].v) / 4;
+    same++;
+    if (weeks[i + 1].v > n4) hits++;
+  }
+  if (same < 8) return null;
+  const pUp = hits / same;
+  const forecastAbove = pUp >= 0.5;
+  const pRaw = clamp(forecastAbove ? pUp : 1 - pUp, 0.15, 0.85);
+  return {
+    engine: "gdelt", target: scope, horizonDays: 7,
+    claim: `GDELT-recorded material-conflict news events involving ${name} over the next 7 days ${forecastAbove ? "above" : "below"} their 4-week weekly average`,
+    pRaw,
+    evidence: {
+      series: weeks.slice(-16).map((w) => w.v),
+      note: `Momentum conditioning: ${same} comparable weeks in the past ${weeks.length} weeks; current week is ${above ? "above" : "below"} the 4-week average. GDELT counts machine-coded NEWS REPORTS of events: volume of coverage, not verified events, with coverage bias. Sparkline: weekly counts, ${Math.min(16, weeks.length)} weeks.`,
+      asof: iso(new Date(weeks[weeks.length - 1].d.replace(/^(\d{4})(\d{2})(\d{2})$/, "$1-$2-$3") + "T00:00:00Z").getTime()),
+    },
+    frozen: { baseline, forecastAbove },
+  };
+}
+
+RESOLVERS[`gdelt:rus_ukr`] = async (t0, t1, frozen) => resolveGdelt("rus_ukr", t0, t1, frozen);
+RESOLVERS[`gdelt:isr_pse`] = async (t0, t1, frozen) => resolveGdelt("isr_pse", t0, t1, frozen);
+
+function resolveGdelt(scope, t0, t1, frozen) {
+  const data = loadGdeltDaily();
+  if (!data || !data[scope]) return null;
+  let sum = 0;
+  for (let t = t0 + DAY; t <= t1; t += DAY) {
+    const ds = day(t).replaceAll("-", "");
+    const v = data[scope][ds];
+    if (v == null) return null; // window not fully observed yet; retry
+    sum += v;
+  }
+  const hit = frozen.forecastAbove ? sum > frozen.baseline : sum <= frozen.baseline;
+  return {
+    hit,
+    actual: `7-day GDELT news-event total ${sum.toLocaleString("en-US")} vs 4-week weekly average ${Math.round(frozen.baseline).toLocaleString("en-US")}`,
+  };
+}
+
+// ---------- Manifold crowd forecasts (external context, not Vantage's own model) ----------
+// Read-only public API (500 req/min limit; terms permit non-commercial
+// integration use). Crowd probabilities are tracked and graded SEPARATELY from
+// Vantage's own engines; they never enter Vantage's hit rate or learning.
+
+const MANIFOLD_CURATED = [
+  ["war", "wENpa5mETtrCnBYJKl5t"],
+  ["war", "rP0gSkoCniNTeQmDagJU"],
+  ["war", "RAfP69qbh16Quoc2WeQD"],
+  ["geopolitics", "tt0Uy260hp"],
+  ["geopolitics", "0z22nhXeCipEuXho6qa8"],
+  ["tech", "6vw71lj8bi"],
+  ["tech", "BetSXeRHXok6VdfPtkp8"],
+  ["tech", "HJdflF0LTJwPNKQmaf6G"],
+];
+const EXTERNAL_PATH = join(root, "external-forecasts.json");
+
+function loadExternal() {
+  try {
+    return JSON.parse(readFileSync(EXTERNAL_PATH, "utf8"));
+  } catch {
+    return { open: [], resolved: [] };
+  }
+}
+
+async function runManifold(report) {
+  const ext = loadExternal();
+  const byId = Object.fromEntries(ext.open.map((m) => [m.id, m]));
+  const keep = new Set(MANIFOLD_CURATED.map(([, id]) => id));
+  ext.open = ext.open.filter((m) => keep.has(m.id));
+
+  for (const [domain, id] of MANIFOLD_CURATED) {
+    try {
+      const m = await fetchJSON(`https://api.manifold.markets/v0/market/${id}`);
+      if (!m || m.outcomeType !== "BINARY") { report.skipped.push(`manifold ${id}: not-binary`); continue; }
+      let rec = byId[id];
+      if (!rec) {
+        rec = {
+          id, domain, question: m.question, url: m.url,
+          criteria: String(m.textDescription || "").slice(0, 500),
+          first_p: null, first_t: null, history: [],
+        };
+        ext.open.push(rec);
+      }
+      rec.domain = domain;
+      const p = typeof m.probability === "number" ? +m.probability.toFixed(4) : null;
+      rec.p = p;
+      rec.bettors = m.uniqueBettorCount ?? null;
+      rec.volume = m.volume != null ? Math.round(m.volume) : null;
+      rec.close_time = m.closeTime ? iso(m.closeTime) : null;
+      rec.close_ms = m.closeTime ?? null;
+      if (p != null) {
+        if (rec.first_p == null) { rec.first_p = p; rec.first_t = iso(now); }
+        const lastH = rec.history[rec.history.length - 1];
+        if (!lastH || Math.abs(lastH[1] - p) > 0.005 || now - lastH[0] > DAY) {
+          rec.history.push([now, p]);
+          rec.history = rec.history.slice(-300);
+        }
+      }
+      if (m.isResolved && m.resolution) {
+        const outcome = m.resolution === "YES" ? "YES" : m.resolution === "NO" ? "NO" : "N/A";
+        const scored = outcome !== "N/A" && rec.first_p != null;
+        ext.resolved.push({
+          id: rec.id, domain: rec.domain, question: rec.question, url: rec.url,
+          outcome, resolution_time: m.resolutionTime ? iso(m.resolutionTime) : null,
+          first_p: rec.first_p, first_t: rec.first_t,
+          crowd_brier: scored ? +(((outcome === "YES" ? 1 : 0) - rec.first_p) ** 2).toFixed(4) : null,
+        });
+        ext.open = ext.open.filter((x) => x.id !== rec.id);
+        report.resolved.push(`manifold ${rec.id}: ${outcome}`);
+      }
+    } catch (e) {
+      report.errors.push(`manifold ${id}: ${e.message}`);
+    }
+    await sleep(400);
+  }
+
+  ext.resolved = ext.resolved.slice(-60);
+  const scoredRes = ext.resolved.filter((r) => r.crowd_brier != null);
+  ext.crowd = {
+    source: "Manifold Markets (play-money prediction market)",
+    tracked: ext.open.length,
+    resolved: scoredRes.length,
+    hits: scoredRes.filter((r) => (r.first_p >= 0.5) === (r.outcome === "YES")).length,
+    brier: scoredRes.length ? +(scoredRes.reduce((a, r) => a + r.crowd_brier, 0) / scoredRes.length).toFixed(4) : null,
+    note: "Crowd probabilities at first tracking vs final market resolution. External context only: never counted in Vantage's own hit rate, Brier score or learning.",
+  };
+  ext.generated_at = iso(now);
+  ext.note = "External crowd forecasts via Manifold's public API. Each card shows the crowd's live probability, participant count, volume, close time and the creator's resolution criteria, with a source link. Vantage does not originate these forecasts.";
+  writeFileSync(EXTERNAL_PATH, JSON.stringify(ext, null, 2));
+}
 
 // ---------- learning ----------
 
@@ -292,6 +539,8 @@ function loadLedger() {
 async function main() {
   const ledger = loadLedger();
   const report = { resolved: [], issued: [], skipped: [], errors: [] };
+
+  await updateGdeltDaily(report);
 
   for (const f of ledger.forecasts) {
     if (f.status !== "open" || now < f.deadline) continue;
@@ -384,6 +633,12 @@ async function main() {
     writeFileSync(join(root, "signals.json"), JSON.stringify(signals, null, 2));
   } catch (e) {
     report.errors.push(`signals: ${e.message}`);
+  }
+
+  try {
+    await runManifold(report);
+  } catch (e) {
+    report.errors.push(`manifold: ${e.message}`);
   }
 
   console.log(JSON.stringify(report, null, 2));
