@@ -51,7 +51,7 @@ function renderCrowd(ext) {
   const fmtClose = (ms) => {
     if (!ms) return "no close date";
     const d = new Date(ms);
-    return "closes " + d.toUTCString().slice(5, 16);
+    return "trading closes " + d.toUTCString().slice(5, 16);
   };
   const cardHtml = (m) => `<div class="card crowd">
     <div class="card-top">
@@ -65,6 +65,7 @@ function renderCrowd(ext) {
     </div>
     <div class="pbar"><div class="pbar-fill crowd-fill" style="width:${m.p != null ? (m.p * 100).toFixed(0) : 0}%"></div></div>
     <div class="crowd-meta">${m.bettors != null ? m.bettors.toLocaleString("en-US") + " traders" : "traders n/a"} · volume M$${m.volume != null ? m.volume.toLocaleString("en-US") : "n/a"}</div>
+    ${m.condition ? `<div class="crowd-meta crowd-cond">${m.condition.replace(/</g, "&lt;")}</div>` : ""}
     <details class="evidence-detail"><summary>Resolution criteria &amp; source</summary><div class="evidence-note">${(m.criteria || "No criteria text provided by the market creator.").replace(/</g, "&lt;")}</div><div class="asof">External forecast — Vantage did not originate it. Source: <a href="${m.url}" target="_blank" rel="noopener">Manifold ↗</a> · first tracked at ${m.first_p != null ? fmtPct(m.first_p) : "—"}</div></details>
   </div>`;
 
@@ -73,7 +74,7 @@ function renderCrowd(ext) {
     if (!el) continue;
     const list = (ext.open || []).filter((m) => m.domain === dom);
     if (!list.length) continue;
-    el.innerHTML = `<h4 class="crowd-title">Crowd forecasts <span class="fgroup-tag">external · via Manifold · not Vantage's own model</span></h4><div class="cards">` + list.map(cardHtml).join("") + `</div>`;
+    el.innerHTML = `<h4 class="crowd-title">Crowd forecasts <span class="fgroup-tag">external · via Manifold · not Vantage's own model</span></h4><div class="cards">` + list.map(cardHtml).join("") + `</div><p class="crowd-note">Trading close is not the resolution deadline: a market is graded only after its creator posts the official resolution.</p>`;
   }
 
   const cr = $("#crowd-record");
