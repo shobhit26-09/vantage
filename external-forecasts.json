@@ -12,6 +12,10 @@
         [
           1793468656652,
           0.2803
+        ],
+        [
+          1793555891931,
+          0.2803
         ]
       ],
       "p": 0.2803,
@@ -33,11 +37,15 @@
         [
           1793468656652,
           0.0188
+        ],
+        [
+          1793555891931,
+          0.0145
         ]
       ],
-      "p": 0.0171,
-      "bettors": 628,
-      "volume": 406292,
+      "p": 0.0145,
+      "bettors": 633,
+      "volume": 414398,
       "close_time": "2026-11-04T04:59:00.000Z",
       "close_ms": 1793768340000,
       "condition": "Conditional market. The condition (Trump winning the 2024 election) is met, so the live question is the ceasefire itself; had it failed, the market would have resolved N/A per its own rules."
@@ -79,11 +87,15 @@
         [
           1793468656652,
           0.0397
+        ],
+        [
+          1793555891931,
+          0.0394
         ]
       ],
-      "p": 0.0397,
+      "p": 0.0394,
       "bettors": 1988,
-      "volume": 3194733,
+      "volume": 3194744,
       "close_time": "2026-12-31T23:59:00.000Z",
       "close_ms": 1798761540000,
       "condition": null
@@ -99,6 +111,10 @@
       "history": [
         [
           1793468656652,
+          0.2741
+        ],
+        [
+          1793555891931,
           0.2741
         ]
       ],
@@ -121,6 +137,10 @@
         [
           1793468656652,
           0.97
+        ],
+        [
+          1793555891931,
+          0.97
         ]
       ],
       "p": 0.97,
@@ -141,6 +161,10 @@
       "history": [
         [
           1793468656652,
+          0.0813
+        ],
+        [
+          1793555891931,
           0.0813
         ]
       ],
@@ -163,6 +187,10 @@
         [
           1793468656652,
           0.7847
+        ],
+        [
+          1793555891931,
+          0.7847
         ]
       ],
       "p": 0.7847,
@@ -182,7 +210,7 @@
     "brier": null,
     "note": "Crowd probabilities at first tracking vs final market resolution. External context only: never counted in Vantage's own hit rate, Brier score or learning."
   },
-  "generated_at": "2026-11-01T06:22:44.915Z",
+  "generated_at": "2026-11-01T17:58:11.931Z",
   "note": "External crowd forecasts via Manifold's public API. Each card shows the crowd's live probability, participant count, volume, close time and the creator's resolution criteria, with a source link. Vantage does not originate these forecasts.",
   "close_note": "close_time is when trading stops, not when the question is decided. A market is scored only after its creator posts the official YES/NO/N-A resolution, which can come later."
 }
