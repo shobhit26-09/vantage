@@ -43,9 +43,9 @@
           0.0145
         ]
       ],
-      "p": 0.0112,
+      "p": 0.0098,
       "bettors": 633,
-      "volume": 428648,
+      "volume": 436903,
       "close_time": "2026-11-04T04:59:00.000Z",
       "close_ms": 1793768340000,
       "condition": "Conditional market. The condition (Trump winning the 2024 election) is met, so the live question is the ceasefire itself; had it failed, the market would have resolved N/A per its own rules."
@@ -214,7 +214,7 @@
     "brier": null,
     "note": "Crowd probabilities at first tracking vs final market resolution. External context only: never counted in Vantage's own hit rate, Brier score or learning."
   },
-  "generated_at": "2026-11-01T22:10:03.541Z",
+  "generated_at": "2026-11-02T06:23:41.415Z",
   "note": "External crowd forecasts via Manifold's public API. Each card shows the crowd's live probability, participant count, volume, close time and the creator's resolution criteria, with a source link. Vantage does not originate these forecasts.",
   "close_note": "close_time is when trading stops, not when the question is decided. A market is scored only after its creator posts the official YES/NO/N-A resolution, which can come later."
 }
