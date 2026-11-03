@@ -20,11 +20,15 @@
         [
           1793656001752,
           0.2803
+        ],
+        [
+          1793734576502,
+          0.2854
         ]
       ],
-      "p": 0.2803,
+      "p": 0.2854,
       "bettors": 1046,
-      "volume": 630357,
+      "volume": 630636,
       "close_time": "2030-01-01T04:59:00.000Z",
       "close_ms": 1893473940000,
       "condition": null
@@ -113,9 +117,9 @@
           0.04
         ]
       ],
-      "p": 0.04,
+      "p": 0.0393,
       "bettors": 1990,
-      "volume": 3202700,
+      "volume": 3203129,
       "close_time": "2026-12-31T23:59:00.000Z",
       "close_ms": 1798761540000,
       "condition": null
@@ -169,11 +173,15 @@
         [
           1793656001752,
           0.97
+        ],
+        [
+          1793734576502,
+          0.9595
         ]
       ],
-      "p": 0.97,
+      "p": 0.9595,
       "bettors": 377,
-      "volume": 226075,
+      "volume": 226095,
       "close_time": "2030-01-01T04:59:00.000Z",
       "close_ms": 1893473940000,
       "condition": null
@@ -246,7 +254,7 @@
     "brier": null,
     "note": "Crowd probabilities at first tracking vs final market resolution. External context only: never counted in Vantage's own hit rate, Brier score or learning."
   },
-  "generated_at": "2026-11-03T06:58:43.787Z",
+  "generated_at": "2026-11-03T19:36:16.502Z",
   "note": "External crowd forecasts via Manifold's public API. Each card shows the crowd's live probability, participant count, volume, close time and the creator's resolution criteria, with a source link. Vantage does not originate these forecasts.",
   "close_note": "close_time is when trading stops, not when the question is decided. A market is scored only after its creator posts the official YES/NO/N-A resolution, which can come later."
 }
