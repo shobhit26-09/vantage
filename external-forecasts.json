@@ -24,47 +24,18 @@
         [
           1793734576502,
           0.2854
+        ],
+        [
+          1793821940770,
+          0.2803
         ]
       ],
-      "p": 0.2854,
+      "p": 0.2803,
       "bettors": 1046,
-      "volume": 630636,
+      "volume": 630916,
       "close_time": "2030-01-01T04:59:00.000Z",
       "close_ms": 1893473940000,
       "condition": null
-    },
-    {
-      "id": "rP0gSkoCniNTeQmDagJU",
-      "domain": "war",
-      "question": "If Trump is elected, will there be a ceasefire in Ukraine before the 2026 midterms?",
-      "url": "https://manifold.markets/Arky/if-trump-is-elected-will-there-be-a-40ca39e5dcec",
-      "criteria": "If Donald Trump does not win the 2024 presidential election or there is a peace treaty signed concluding the Russia-Ukraine war before the election this market will resolve to N/A. If Donald Trump does win the 2024 presidential election:\n\nThis market will resolve to YES if, before November 3rd 2026, there is a ceasefire in the Russia-Ukraine war that consists of a 30 day period where the Ukrainian Ministry of Defense's daily updates report that less than 100 Russian soldiers have been killed in ",
-      "first_p": 0.0188,
-      "first_t": "2026-10-31T17:44:16.652Z",
-      "history": [
-        [
-          1793468656652,
-          0.0188
-        ],
-        [
-          1793555891931,
-          0.0145
-        ],
-        [
-          1793656001752,
-          0.01
-        ],
-        [
-          1793774416516,
-          0.01
-        ]
-      ],
-      "p": 0.01,
-      "bettors": 635,
-      "volume": 436917,
-      "close_time": "2026-11-04T04:59:00.000Z",
-      "close_ms": 1793768340000,
-      "condition": "Conditional market. The condition (Trump winning the 2024 election) is met, so the live question is the ceasefire itself; had it failed, the market would have resolved N/A per its own rules."
     },
     {
       "id": "RAfP69qbh16Quoc2WeQD",
@@ -89,6 +60,10 @@
         ],
         [
           1793689123787,
+          0.16
+        ],
+        [
+          1793821940770,
           0.16
         ]
       ],
@@ -125,9 +100,9 @@
           0.039
         ]
       ],
-      "p": 0.039,
+      "p": 0.0358,
       "bettors": 1990,
-      "volume": 3203250,
+      "volume": 3206417,
       "close_time": "2026-12-31T23:59:00.000Z",
       "close_ms": 1798761540000,
       "condition": null
@@ -188,6 +163,10 @@
         ],
         [
           1793734576502,
+          0.9595
+        ],
+        [
+          1793821940770,
           0.9595
         ]
       ],
@@ -265,16 +244,28 @@
       "condition": null
     }
   ],
-  "resolved": [],
+  "resolved": [
+    {
+      "id": "rP0gSkoCniNTeQmDagJU",
+      "domain": "war",
+      "question": "If Trump is elected, will there be a ceasefire in Ukraine before the 2026 midterms?",
+      "url": "https://manifold.markets/Arky/if-trump-is-elected-will-there-be-a-40ca39e5dcec",
+      "outcome": "NO",
+      "resolution_time": "2026-11-04T13:59:40.943Z",
+      "first_p": 0.0188,
+      "first_t": "2026-10-31T17:44:16.652Z",
+      "crowd_brier": 0.0004
+    }
+  ],
   "crowd": {
     "source": "Manifold Markets (play-money prediction market)",
-    "tracked": 8,
-    "resolved": 0,
-    "hits": 0,
-    "brier": null,
+    "tracked": 7,
+    "resolved": 1,
+    "hits": 1,
+    "brier": 0.0004,
     "note": "Crowd probabilities at first tracking vs final market resolution. External context only: never counted in Vantage's own hit rate, Brier score or learning."
   },
-  "generated_at": "2026-11-04T06:40:16.516Z",
+  "generated_at": "2026-11-04T19:52:20.770Z",
   "note": "External crowd forecasts via Manifold's public API. Each card shows the crowd's live probability, participant count, volume, close time and the creator's resolution criteria, with a source link. Vantage does not originate these forecasts.",
   "close_note": "close_time is when trading stops, not when the question is decided. A market is scored only after its creator posts the official YES/NO/N-A resolution, which can come later."
 }
