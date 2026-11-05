@@ -28,11 +28,15 @@
         [
           1793821940770,
           0.2803
+        ],
+        [
+          1793861952813,
+          0.2669
         ]
       ],
-      "p": 0.2803,
+      "p": 0.2669,
       "bettors": 1046,
-      "volume": 630916,
+      "volume": 631916,
       "close_time": "2030-01-01T04:59:00.000Z",
       "close_ms": 1893473940000,
       "condition": null
@@ -98,11 +102,15 @@
         [
           1793774416516,
           0.039
+        ],
+        [
+          1793861952813,
+          0.0299
         ]
       ],
-      "p": 0.0358,
-      "bettors": 1990,
-      "volume": 3206417,
+      "p": 0.0299,
+      "bettors": 1991,
+      "volume": 3216767,
       "close_time": "2026-12-31T23:59:00.000Z",
       "close_ms": 1798761540000,
       "condition": null
@@ -130,6 +138,10 @@
         ],
         [
           1793774416516,
+          0.2741
+        ],
+        [
+          1793861952813,
           0.2741
         ]
       ],
@@ -201,6 +213,10 @@
         [
           1793774416516,
           0.0813
+        ],
+        [
+          1793861952813,
+          0.0813
         ]
       ],
       "p": 0.0813,
@@ -234,6 +250,10 @@
         [
           1793774416516,
           0.7847
+        ],
+        [
+          1793861952813,
+          0.7847
         ]
       ],
       "p": 0.7847,
@@ -255,17 +275,28 @@
       "first_p": 0.0188,
       "first_t": "2026-10-31T17:44:16.652Z",
       "crowd_brier": 0.0004
+    },
+    {
+      "id": "rP0gSkoCniNTeQmDagJU",
+      "domain": "war",
+      "question": "If Trump is elected, will there be a ceasefire in Ukraine before the 2026 midterms?",
+      "url": "https://manifold.markets/Arky/if-trump-is-elected-will-there-be-a-40ca39e5dcec",
+      "outcome": "NO",
+      "resolution_time": "2026-11-04T13:59:40.943Z",
+      "first_p": 0.01,
+      "first_t": "2026-11-05T06:59:12.813Z",
+      "crowd_brier": 0.0001
     }
   ],
   "crowd": {
     "source": "Manifold Markets (play-money prediction market)",
     "tracked": 7,
-    "resolved": 1,
-    "hits": 1,
-    "brier": 0.0004,
+    "resolved": 2,
+    "hits": 2,
+    "brier": 0.0003,
     "note": "Crowd probabilities at first tracking vs final market resolution. External context only: never counted in Vantage's own hit rate, Brier score or learning."
   },
-  "generated_at": "2026-11-04T19:52:20.770Z",
+  "generated_at": "2026-11-05T06:59:12.813Z",
   "note": "External crowd forecasts via Manifold's public API. Each card shows the crowd's live probability, participant count, volume, close time and the creator's resolution criteria, with a source link. Vantage does not originate these forecasts.",
   "close_note": "close_time is when trading stops, not when the question is decided. A market is scored only after its creator posts the official YES/NO/N-A resolution, which can come later."
 }
