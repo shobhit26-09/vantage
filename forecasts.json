@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-11-09T06:50:02.743Z",
+  "generated_at": "2026-11-09T22:29:34.004Z",
   "stats": {
     "open": 15,
-    "resolved": 8,
-    "hits": 7,
-    "hitRate": 0.875,
-    "brier": 0.1546
+    "resolved": 10,
+    "hits": 8,
+    "hitRate": 0.8,
+    "brier": 0.1768
   },
   "learning": {
     "markets": {
@@ -23,95 +23,17 @@
       "brierMean": 0.0273,
       "avgAbsDelta": 0,
       "state": "cold-start"
+    },
+    "geopolitics": {
+      "n": 2,
+      "hits": 1,
+      "hitRate": 0.5,
+      "brierMean": 0.266,
+      "avgAbsDelta": 0,
+      "state": "cold-start"
     }
   },
   "active": [
-    {
-      "id": "geopolitics-ukraine-2026-10-31",
-      "engine": "geopolitics",
-      "target": "ukraine",
-      "claim": "Wikipedia views of 'Russian invasion of Ukraine' weekly views over the next 7 days below its 4-week average",
-      "p": 0.643,
-      "p_raw": 0.643,
-      "adjust": {
-        "state": "cold-start",
-        "n": 0,
-        "obsRate": null,
-        "delta": 0
-      },
-      "created": 1793466497761,
-      "deadline": 1794071297761,
-      "evidence": {
-        "series": [
-          12597,
-          12771,
-          13394,
-          12855,
-          12054,
-          13634,
-          13092,
-          12721,
-          12075,
-          12102,
-          12216,
-          11634,
-          11084,
-          11349,
-          12308,
-          11249
-        ],
-        "note": "Momentum conditioning: 14 comparable weeks in the past year; current week is below the 4-week average. Sparkline: weekly totals, 16 weeks.",
-        "asof": "2026-10-30T00:00:00.000Z"
-      },
-      "frozen": {
-        "baseline": 11593.75,
-        "forecastAbove": false
-      },
-      "status": "open"
-    },
-    {
-      "id": "geopolitics-gaza-2026-10-31",
-      "engine": "geopolitics",
-      "target": "gaza",
-      "claim": "Wikipedia views of 'Gaza war' weekly views over the next 7 days above its 4-week average",
-      "p": 0.636,
-      "p_raw": 0.636,
-      "adjust": {
-        "state": "cold-start",
-        "n": 0,
-        "obsRate": null,
-        "delta": 0
-      },
-      "created": 1793466497761,
-      "deadline": 1794071297761,
-      "evidence": {
-        "series": [
-          42445,
-          54867,
-          53330,
-          64353,
-          50107,
-          49624,
-          41452,
-          41296,
-          46503,
-          70617,
-          67291,
-          60528,
-          72616,
-          44948,
-          40911,
-          57489
-        ],
-        "note": "Momentum conditioning: 11 comparable weeks in the past year; current week is above the 4-week average. Sparkline: weekly totals, 16 weeks.",
-        "asof": "2026-10-30T00:00:00.000Z"
-      },
-      "frozen": {
-        "baseline": 54750.75,
-        "forecastAbove": true
-      },
-      "status": "open"
-    },
     {
       "id": "gdelt-rus_ukr-2026-10-31",
       "engine": "gdelt",
@@ -885,9 +807,187 @@
         "forecastAbove": true
       },
       "status": "open"
+    },
+    {
+      "id": "geopolitics-ukraine-2026-11-09",
+      "engine": "geopolitics",
+      "target": "ukraine",
+      "claim": "Wikipedia views of 'Russian invasion of Ukraine' weekly views over the next 7 days below its 4-week average",
+      "p": 0.733,
+      "p_raw": 0.733,
+      "adjust": {
+        "state": "cold-start",
+        "n": 2,
+        "obsRate": null,
+        "delta": 0
+      },
+      "created": 1794263374004,
+      "deadline": 1794868174004,
+      "evidence": {
+        "series": [
+          12979,
+          13112,
+          13105,
+          11856,
+          13757,
+          13259,
+          12353,
+          12019,
+          12365,
+          11888,
+          11632,
+          10900,
+          11591,
+          12505,
+          10903,
+          10205
+        ],
+        "note": "Momentum conditioning: 15 comparable weeks in the past year; current week is below the 4-week average. Sparkline: weekly totals, 16 weeks.",
+        "asof": "2026-11-08T00:00:00.000Z"
+      },
+      "frozen": {
+        "baseline": 11474.75,
+        "forecastAbove": false
+      },
+      "status": "open"
+    },
+    {
+      "id": "geopolitics-gaza-2026-11-09",
+      "engine": "geopolitics",
+      "target": "gaza",
+      "claim": "Wikipedia views of 'Gaza war' weekly views over the next 7 days below its 4-week average",
+      "p": 0.727,
+      "p_raw": 0.727,
+      "adjust": {
+        "state": "cold-start",
+        "n": 2,
+        "obsRate": null,
+        "delta": 0
+      },
+      "created": 1794263374004,
+      "deadline": 1794868174004,
+      "evidence": {
+        "series": [
+          52982,
+          57479,
+          61408,
+          51847,
+          44676,
+          42207,
+          40376,
+          50906,
+          76014,
+          63781,
+          59608,
+          70532,
+          42300,
+          42091,
+          55673,
+          41099
+        ],
+        "note": "Momentum conditioning: 11 comparable weeks in the past year; current week is below the 4-week average. Sparkline: weekly totals, 16 weeks.",
+        "asof": "2026-11-08T00:00:00.000Z"
+      },
+      "frozen": {
+        "baseline": 52649,
+        "forecastAbove": false
+      },
+      "status": "open"
     }
   ],
   "resolved": [
+    {
+      "id": "geopolitics-gaza-2026-10-31",
+      "engine": "geopolitics",
+      "target": "gaza",
+      "claim": "Wikipedia views of 'Gaza war' weekly views over the next 7 days above its 4-week average",
+      "p": 0.636,
+      "p_raw": 0.636,
+      "adjust": {
+        "state": "cold-start",
+        "n": 0,
+        "obsRate": null,
+        "delta": 0
+      },
+      "created": 1793466497761,
+      "deadline": 1794071297761,
+      "evidence": {
+        "series": [
+          42445,
+          54867,
+          53330,
+          64353,
+          50107,
+          49624,
+          41452,
+          41296,
+          46503,
+          70617,
+          67291,
+          60528,
+          72616,
+          44948,
+          40911,
+          57489
+        ],
+        "note": "Momentum conditioning: 11 comparable weeks in the past year; current week is above the 4-week average. Sparkline: weekly totals, 16 weeks.",
+        "asof": "2026-10-30T00:00:00.000Z"
+      },
+      "frozen": {
+        "baseline": 54750.75,
+        "forecastAbove": true
+      },
+      "status": "miss",
+      "actual": "7-day total 39,884 vs 4-week average 54,751",
+      "resolved_at": "2026-11-09T22:29:34.004Z",
+      "brier": 0.4045
+    },
+    {
+      "id": "geopolitics-ukraine-2026-10-31",
+      "engine": "geopolitics",
+      "target": "ukraine",
+      "claim": "Wikipedia views of 'Russian invasion of Ukraine' weekly views over the next 7 days below its 4-week average",
+      "p": 0.643,
+      "p_raw": 0.643,
+      "adjust": {
+        "state": "cold-start",
+        "n": 0,
+        "obsRate": null,
+        "delta": 0
+      },
+      "created": 1793466497761,
+      "deadline": 1794071297761,
+      "evidence": {
+        "series": [
+          12597,
+          12771,
+          13394,
+          12855,
+          12054,
+          13634,
+          13092,
+          12721,
+          12075,
+          12102,
+          12216,
+          11634,
+          11084,
+          11349,
+          12308,
+          11249
+        ],
+        "note": "Momentum conditioning: 14 comparable weeks in the past year; current week is below the 4-week average. Sparkline: weekly totals, 16 weeks.",
+        "asof": "2026-10-30T00:00:00.000Z"
+      },
+      "frozen": {
+        "baseline": 11593.75,
+        "forecastAbove": false
+      },
+      "status": "hit",
+      "actual": "7-day total 10,457 vs 4-week average 11,594",
+      "resolved_at": "2026-11-09T22:29:34.004Z",
+      "brier": 0.1274
+    },
     {
       "id": "tech-npm-openai-2026-10-31",
       "engine": "tech",
