@@ -718,17 +718,28 @@
       "first_p": 0.01,
       "first_t": "2026-11-14T06:40:51.518Z",
       "crowd_brier": 0.0001
+    },
+    {
+      "id": "rP0gSkoCniNTeQmDagJU",
+      "domain": "war",
+      "question": "If Trump is elected, will there be a ceasefire in Ukraine before the 2026 midterms?",
+      "url": "https://manifold.markets/Arky/if-trump-is-elected-will-there-be-a-40ca39e5dcec",
+      "outcome": "NO",
+      "resolution_time": "2026-11-04T13:59:40.943Z",
+      "first_p": 0.01,
+      "first_t": "2026-11-14T18:15:43.466Z",
+      "crowd_brier": 0.0001
     }
   ],
   "crowd": {
     "source": "Manifold Markets (play-money prediction market)",
     "tracked": 7,
-    "resolved": 22,
-    "hits": 22,
+    "resolved": 23,
+    "hits": 23,
     "brier": 0.0001,
     "note": "Crowd probabilities at first tracking vs final market resolution. External context only: never counted in Vantage's own hit rate, Brier score or learning."
   },
-  "generated_at": "2026-11-14T06:40:51.518Z",
+  "generated_at": "2026-11-14T18:15:43.466Z",
   "note": "External crowd forecasts via Manifold's public API. Each card shows the crowd's live probability, participant count, volume, close time and the creator's resolution criteria, with a source link. Vantage does not originate these forecasts.",
   "close_note": "close_time is when trading stops, not when the question is decided. A market is scored only after its creator posts the official YES/NO/N-A resolution, which can come later."
 }
