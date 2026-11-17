@@ -226,11 +226,15 @@
         [
           1794811513867,
           0.0255
+        ],
+        [
+          1794902762586,
+          0.0251
         ]
       ],
       "p": 0.0251,
       "bettors": 1994,
-      "volume": 3236648,
+      "volume": 3236649,
       "close_time": "2026-12-31T23:59:00.000Z",
       "close_ms": 1798761540000,
       "condition": null
@@ -298,6 +302,10 @@
         ],
         [
           1794811513867,
+          0.2741
+        ],
+        [
+          1794902762586,
           0.2741
         ]
       ],
@@ -449,6 +457,10 @@
         [
           1794811513867,
           0.0813
+        ],
+        [
+          1794902762586,
+          0.0813
         ]
       ],
       "p": 0.0813,
@@ -521,6 +533,10 @@
         ],
         [
           1794811513867,
+          0.7847
+        ],
+        [
+          1794902762586,
           0.7847
         ]
       ],
@@ -840,17 +856,28 @@
       "first_p": 0.01,
       "first_t": "2026-11-16T22:17:25.185Z",
       "crowd_brier": 0.0001
+    },
+    {
+      "id": "rP0gSkoCniNTeQmDagJU",
+      "domain": "war",
+      "question": "If Trump is elected, will there be a ceasefire in Ukraine before the 2026 midterms?",
+      "url": "https://manifold.markets/Arky/if-trump-is-elected-will-there-be-a-40ca39e5dcec",
+      "outcome": "NO",
+      "resolution_time": "2026-11-04T13:59:40.943Z",
+      "first_p": 0.01,
+      "first_t": "2026-11-17T08:06:02.586Z",
+      "crowd_brier": 0.0001
     }
   ],
   "crowd": {
     "source": "Manifold Markets (play-money prediction market)",
     "tracked": 7,
-    "resolved": 28,
-    "hits": 28,
+    "resolved": 29,
+    "hits": 29,
     "brier": 0.0001,
     "note": "Crowd probabilities at first tracking vs final market resolution. External context only: never counted in Vantage's own hit rate, Brier score or learning."
   },
-  "generated_at": "2026-11-16T22:17:25.185Z",
+  "generated_at": "2026-11-17T08:06:02.586Z",
   "note": "External crowd forecasts via Manifold's public API. Each card shows the crowd's live probability, participant count, volume, close time and the creator's resolution criteria, with a source link. Vantage does not originate these forecasts.",
   "close_note": "close_time is when trading stops, not when the question is decided. A market is scored only after its creator posts the official YES/NO/N-A resolution, which can come later."
 }

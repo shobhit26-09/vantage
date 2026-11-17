@@ -1511,7 +1511,10 @@
         "baseline": 11474.75,
         "forecastAbove": false
       },
-      "status": "open"
+      "status": "hit",
+      "actual": "7-day total 10,604 vs 4-week average 11,475",
+      "resolved_at": "2026-11-17T08:06:02.586Z",
+      "brier": 0.0713
     },
     {
       "id": "geopolitics-gaza-2026-11-09",
@@ -1554,7 +1557,10 @@
         "baseline": 52649,
         "forecastAbove": false
       },
-      "status": "open"
+      "status": "hit",
+      "actual": "7-day total 35,226 vs 4-week average 52,649",
+      "resolved_at": "2026-11-17T08:06:02.586Z",
+      "brier": 0.0745
     },
     {
       "id": "markets-btc-usd-2026-11-11",
@@ -2206,7 +2212,93 @@
         "forecastAbove": true
       },
       "status": "open"
+    },
+    {
+      "id": "geopolitics-ukraine-2026-11-17",
+      "engine": "geopolitics",
+      "target": "ukraine",
+      "claim": "Wikipedia views of 'Russian invasion of Ukraine' weekly views over the next 7 days below its 4-week average",
+      "p": 0.733,
+      "p_raw": 0.733,
+      "adjust": {
+        "state": "cold-start",
+        "n": 4,
+        "obsRate": null,
+        "delta": 0
+      },
+      "created": 1794902762586,
+      "deadline": 1795507562586,
+      "evidence": {
+        "series": [
+          12965,
+          13134,
+          13101,
+          12679,
+          13152,
+          12294,
+          11995,
+          12488,
+          11729,
+          11525,
+          10791,
+          11746,
+          12375,
+          11142,
+          9828,
+          10604
+        ],
+        "note": "Momentum conditioning: 15 comparable weeks in the past year; current week is below the 4-week average. Sparkline: weekly totals, 16 weeks.",
+        "asof": "2026-11-16T00:00:00.000Z"
+      },
+      "frozen": {
+        "baseline": 11272.75,
+        "forecastAbove": false
+      },
+      "status": "open"
+    },
+    {
+      "id": "geopolitics-gaza-2026-11-17",
+      "engine": "geopolitics",
+      "target": "gaza",
+      "claim": "Wikipedia views of 'Gaza war' weekly views over the next 7 days below its 4-week average",
+      "p": 0.692,
+      "p_raw": 0.692,
+      "adjust": {
+        "state": "cold-start",
+        "n": 4,
+        "obsRate": null,
+        "delta": 0
+      },
+      "created": 1794902762586,
+      "deadline": 1795507562586,
+      "evidence": {
+        "series": [
+          58141,
+          61127,
+          52219,
+          43021,
+          42615,
+          40305,
+          53399,
+          76575,
+          64015,
+          58246,
+          69061,
+          41554,
+          44378,
+          53456,
+          41094,
+          35226
+        ],
+        "note": "Momentum conditioning: 13 comparable weeks in the past year; current week is below the 4-week average. Sparkline: weekly totals, 16 weeks.",
+        "asof": "2026-11-16T00:00:00.000Z"
+      },
+      "frozen": {
+        "baseline": 45120.5,
+        "forecastAbove": false
+      },
+      "status": "open"
     }
   ],
-  "updated_at": "2026-11-16T22:17:25.185Z"
+  "updated_at": "2026-11-17T08:06:02.586Z"
 }
