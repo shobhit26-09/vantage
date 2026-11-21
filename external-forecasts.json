@@ -84,6 +84,10 @@
         [
           1795121181364,
           0.2848
+        ],
+        [
+          1795245797673,
+          0.2848
         ]
       ],
       "p": 0.2848,
@@ -177,11 +181,15 @@
         [
           1795206624298,
           0.1993
+        ],
+        [
+          1795245797673,
+          0.2965
         ]
       ],
-      "p": 0.1993,
-      "bettors": 366,
-      "volume": 112363,
+      "p": 0.2965,
+      "bettors": 367,
+      "volume": 112557,
       "close_time": "2028-01-01T04:59:00.000Z",
       "close_ms": 1830315540000,
       "condition": null
@@ -262,11 +270,15 @@
         [
           1795121181364,
           0.0252
+        ],
+        [
+          1795245797673,
+          0.0249
         ]
       ],
-      "p": 0.0252,
-      "bettors": 1995,
-      "volume": 3237180,
+      "p": 0.0249,
+      "bettors": 1996,
+      "volume": 3238165,
       "close_time": "2026-12-31T23:59:00.000Z",
       "close_ms": 1798761540000,
       "condition": null
@@ -346,6 +358,10 @@
         ],
         [
           1795121181364,
+          0.2741
+        ],
+        [
+          1795245797673,
           0.2741
         ]
       ],
@@ -432,6 +448,10 @@
         [
           1795121181364,
           0.9651
+        ],
+        [
+          1795245797673,
+          0.9651
         ]
       ],
       "p": 0.9651,
@@ -517,6 +537,10 @@
         [
           1795121181364,
           0.0813
+        ],
+        [
+          1795245797673,
+          0.0813
         ]
       ],
       "p": 0.0813,
@@ -601,6 +625,10 @@
         ],
         [
           1795121181364,
+          0.7847
+        ],
+        [
+          1795245797673,
           0.7847
         ]
       ],
@@ -1008,17 +1036,28 @@
       "first_p": 0.01,
       "first_t": "2026-11-20T20:30:24.298Z",
       "crowd_brier": 0.0001
+    },
+    {
+      "id": "rP0gSkoCniNTeQmDagJU",
+      "domain": "war",
+      "question": "If Trump is elected, will there be a ceasefire in Ukraine before the 2026 midterms?",
+      "url": "https://manifold.markets/Arky/if-trump-is-elected-will-there-be-a-40ca39e5dcec",
+      "outcome": "NO",
+      "resolution_time": "2026-11-04T13:59:40.943Z",
+      "first_p": 0.01,
+      "first_t": "2026-11-21T07:23:17.673Z",
+      "crowd_brier": 0.0001
     }
   ],
   "crowd": {
     "source": "Manifold Markets (play-money prediction market)",
     "tracked": 7,
-    "resolved": 36,
-    "hits": 36,
+    "resolved": 37,
+    "hits": 37,
     "brier": 0.0001,
     "note": "Crowd probabilities at first tracking vs final market resolution. External context only: never counted in Vantage's own hit rate, Brier score or learning."
   },
-  "generated_at": "2026-11-20T20:30:24.298Z",
+  "generated_at": "2026-11-21T07:23:17.673Z",
   "note": "External crowd forecasts via Manifold's public API. Each card shows the crowd's live probability, participant count, volume, close time and the creator's resolution criteria, with a source link. Vantage does not originate these forecasts.",
   "close_note": "close_time is when trading stops, not when the question is decided. A market is scored only after its creator posts the official YES/NO/N-A resolution, which can come later."
 }
