@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-11-24T00:01:35.761Z",
+  "generated_at": "2026-11-24T10:03:56.220Z",
   "stats": {
-    "open": 12,
+    "open": 15,
     "resolved": 30,
     "hits": 27,
     "hitRate": 0.9,
@@ -762,6 +762,135 @@
       },
       "frozen": {
         "med": 0.015976478891019445
+      },
+      "status": "open"
+    },
+    {
+      "id": "tech-npm-react-2026-11-24",
+      "engine": "tech",
+      "target": "npm-react",
+      "claim": "React npm weekly downloads over the next 7 days above its 4-week average",
+      "p": 0.897,
+      "p_raw": 0.85,
+      "adjust": {
+        "state": "warming",
+        "n": 9,
+        "obsRate": 1,
+        "delta": 0.047
+      },
+      "created": 1795514636220,
+      "deadline": 1796119436220,
+      "evidence": {
+        "series": [
+          163671497,
+          169268016,
+          172436932,
+          169416037,
+          184125723,
+          191752089,
+          196409190,
+          207637325,
+          223647510,
+          187962192,
+          122900582,
+          207260943,
+          244554752,
+          252214826,
+          264981619,
+          274654160
+        ],
+        "note": "Momentum conditioning: 41 comparable weeks in the past year; current week is above the 4-week average. Sparkline: weekly totals, 16 weeks.",
+        "asof": "2026-11-23T00:00:00.000Z"
+      },
+      "frozen": {
+        "baseline": 242253035,
+        "forecastAbove": true
+      },
+      "status": "open"
+    },
+    {
+      "id": "tech-npm-typescript-2026-11-24",
+      "engine": "tech",
+      "target": "npm-typescript",
+      "claim": "TypeScript npm weekly downloads over the next 7 days above its 4-week average",
+      "p": 0.897,
+      "p_raw": 0.85,
+      "adjust": {
+        "state": "warming",
+        "n": 9,
+        "obsRate": 1,
+        "delta": 0.047
+      },
+      "created": 1795514636220,
+      "deadline": 1796119436220,
+      "evidence": {
+        "series": [
+          260077070,
+          266060748,
+          273257696,
+          272307161,
+          294374897,
+          304441762,
+          313955677,
+          338656146,
+          365010497,
+          307015402,
+          194667195,
+          336311374,
+          402640248,
+          417015344,
+          433588805,
+          449380935
+        ],
+        "note": "Momentum conditioning: 41 comparable weeks in the past year; current week is above the 4-week average. Sparkline: weekly totals, 16 weeks.",
+        "asof": "2026-11-23T00:00:00.000Z"
+      },
+      "frozen": {
+        "baseline": 397388942.75,
+        "forecastAbove": true
+      },
+      "status": "open"
+    },
+    {
+      "id": "tech-npm-openai-2026-11-24",
+      "engine": "tech",
+      "target": "npm-openai",
+      "claim": "OpenAI npm weekly downloads over the next 7 days above its 4-week average",
+      "p": 0.897,
+      "p_raw": 0.85,
+      "adjust": {
+        "state": "warming",
+        "n": 9,
+        "obsRate": 1,
+        "delta": 0.047
+      },
+      "created": 1795514636220,
+      "deadline": 1796119436220,
+      "evidence": {
+        "series": [
+          32034287,
+          34395245,
+          35460050,
+          39947554,
+          41596124,
+          43398099,
+          42074591,
+          46159593,
+          50776253,
+          43409938,
+          26581508,
+          46240598,
+          55368771,
+          57512236,
+          59774802,
+          62335801
+        ],
+        "note": "Momentum conditioning: 41 comparable weeks in the past year; current week is above the 4-week average. Sparkline: weekly totals, 16 weeks.",
+        "asof": "2026-11-23T00:00:00.000Z"
+      },
+      "frozen": {
+        "baseline": 54724101.75,
+        "forecastAbove": true
       },
       "status": "open"
     }
