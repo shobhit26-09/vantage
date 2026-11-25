@@ -102,9 +102,9 @@
           0.2757
         ]
       ],
-      "p": 0.2757,
+      "p": 0.2759,
       "bettors": 1049,
-      "volume": 634990,
+      "volume": 635001,
       "close_time": "2030-01-01T04:59:00.000Z",
       "close_ms": 1893473940000,
       "condition": null
@@ -316,9 +316,9 @@
           0.025
         ]
       ],
-      "p": 0.025,
+      "p": 0.0251,
       "bettors": 1996,
-      "volume": 3238362,
+      "volume": 3238627,
       "close_time": "2026-12-31T23:59:00.000Z",
       "close_ms": 1798761540000,
       "condition": null
@@ -520,7 +520,7 @@
       ],
       "p": 0.97,
       "bettors": 378,
-      "volume": 226416,
+      "volume": 226788,
       "close_time": "2030-01-01T04:59:00.000Z",
       "close_ms": 1893473940000,
       "condition": null
@@ -718,11 +718,15 @@
         [
           1795596577808,
           0.7847
+        ],
+        [
+          1795643371298,
+          0.9072
         ]
       ],
-      "p": 0.7847,
-      "bettors": 107,
-      "volume": 19653,
+      "p": 0.9072,
+      "bettors": 111,
+      "volume": 20578,
       "close_time": "2030-01-01T08:00:00.000Z",
       "close_ms": 1893484800000,
       "condition": null
@@ -1223,17 +1227,28 @@
       "first_p": 0.01,
       "first_t": "2026-11-25T08:49:37.808Z",
       "crowd_brier": 0.0001
+    },
+    {
+      "id": "rP0gSkoCniNTeQmDagJU",
+      "domain": "war",
+      "question": "If Trump is elected, will there be a ceasefire in Ukraine before the 2026 midterms?",
+      "url": "https://manifold.markets/Arky/if-trump-is-elected-will-there-be-a-40ca39e5dcec",
+      "outcome": "NO",
+      "resolution_time": "2026-11-04T13:59:40.943Z",
+      "first_p": 0.01,
+      "first_t": "2026-11-25T21:49:31.298Z",
+      "crowd_brier": 0.0001
     }
   ],
   "crowd": {
     "source": "Manifold Markets (play-money prediction market)",
     "tracked": 7,
-    "resolved": 45,
-    "hits": 45,
+    "resolved": 46,
+    "hits": 46,
     "brier": 0.0001,
     "note": "Crowd probabilities at first tracking vs final market resolution. External context only: never counted in Vantage's own hit rate, Brier score or learning."
   },
-  "generated_at": "2026-11-25T08:49:37.808Z",
+  "generated_at": "2026-11-25T21:49:31.298Z",
   "note": "External crowd forecasts via Manifold's public API. Each card shows the crowd's live probability, participant count, volume, close time and the creator's resolution criteria, with a source link. Vantage does not originate these forecasts.",
   "close_note": "close_time is when trading stops, not when the question is decided. A market is scored only after its creator posts the official YES/NO/N-A resolution, which can come later."
 }
